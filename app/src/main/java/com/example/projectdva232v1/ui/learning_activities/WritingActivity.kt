@@ -10,11 +10,6 @@ class WritingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_writing)
 
-        // Setup the writing activity
-        val textView: TextView = findViewById(R.id.textViewWritingActivity)
-        textView.text = getString(R.string.writing_activity_sample_text)
-
-        //TODO: also include source "Adapted from (Jensen..."
         //TODO: Set margin/padding or something on the text, also make the font bigger (look at conventions)
     }
 }
