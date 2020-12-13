@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.projectdva232v1" >
+    package="com.example.projectdva232v1">
 
     <application
         android:allowBackup="true"
@@ -8,11 +8,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ProjectDva232V1" >
+        android:theme="@style/Theme.ProjectDva232V1">
+        <activity android:name=".ui.learning_activities.TestSelector"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".ui.learning_activities.ReadingActivity"
+            android:parentActivityName=".ui.learning_activities.TestSelector"/>
+        <activity android:name=".ui.learning_activities.SpeakingActivity"
+            android:parentActivityName=".ui.learning_activities.TestSelector"/>
+        <activity android:name=".ui.learning_activities.VocabularyActivity"
+            android:parentActivityName=".ui.learning_activities.TestSelector"/>
+        <activity android:name=".ui.learning_activities.WritingActivity"
+            android:parentActivityName=".ui.learning_activities.TestSelector"/>
+        <activity android:name=".ui.learning_activities.ListeningActivity"
+            android:parentActivityName=".ui.learning_activities.TestSelector"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ProjectDva232V1.NoActionBar" >
+            android:theme="@style/Theme.ProjectDva232V1.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

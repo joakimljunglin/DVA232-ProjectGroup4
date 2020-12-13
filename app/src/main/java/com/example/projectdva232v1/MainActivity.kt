@@ -1,6 +1,8 @@
 package com.example.projectdva232v1
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -12,6 +14,8 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.projectdva232v1.ui.learning_activities.ListeningActivity
+import com.example.projectdva232v1.ui.learning_activities.TestSelector
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +38,8 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_example1, R.id.nav_example2, R.id.nav_example3,R.id.nav_example4, R.id.nav_example5,R.id.nav_example6), drawerLayout)
+            R.id.nav_example1, R.id.nav_example2, R.id.nav_example3,R.id.nav_example4,
+            R.id.nav_example5,R.id.nav_example6,R.id.nav_test1), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
@@ -48,5 +53,12 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    // TODO: Remove below function
+    // Temporary function for easier navigation
+    fun loadActivityMenu(view: View) {
+        val intent = Intent(this, TestSelector::class.java)
+        startActivity(intent)
     }
 }
