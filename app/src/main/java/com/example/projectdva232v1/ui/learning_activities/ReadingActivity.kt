@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import com.example.projectdva232v1.R
 import com.google.android.material.chip.ChipGroup
+import org.json.JSONObject
 
 class ReadingActivity : AppCompatActivity() {
     lateinit var btn: Button
@@ -17,7 +18,11 @@ class ReadingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reading)
 
+        getData()
         initView()
+    }
+
+    private fun getData() {
     }
 
     private fun initView() {
