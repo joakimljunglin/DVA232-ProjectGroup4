@@ -9,6 +9,7 @@ import android.widget.ProgressBar
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.learning_activities.utilities.getJsonDataFromAsset
 import com.google.android.material.chip.ChipGroup
+import com.google.gson.Gson
 import org.json.JSONObject
 
 class ReadingActivity : AppCompatActivity() {
@@ -27,6 +28,8 @@ class ReadingActivity : AppCompatActivity() {
     private fun getData() {
         val jsonFileString = getJsonDataFromAsset(applicationContext,
                 "reading_sample.json")
+
+        val gson = Gson()
     }
 
     private fun initView() {
