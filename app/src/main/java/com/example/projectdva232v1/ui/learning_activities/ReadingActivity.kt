@@ -2,10 +2,12 @@ package com.example.projectdva232v1.ui.learning_activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import com.example.projectdva232v1.R
+import com.example.projectdva232v1.ui.learning_activities.utilities.getJsonDataFromAsset
 import com.google.android.material.chip.ChipGroup
 import org.json.JSONObject
 
@@ -23,6 +25,8 @@ class ReadingActivity : AppCompatActivity() {
     }
 
     private fun getData() {
+        val jsonFileString = getJsonDataFromAsset(applicationContext,
+                "reading_sample.json")
     }
 
     private fun initView() {
