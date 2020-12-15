@@ -7,9 +7,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import com.example.projectdva232v1.R
+import com.example.projectdva232v1.ui.learning_activities.classes.Quiz
 import com.example.projectdva232v1.ui.learning_activities.utilities.getJsonDataFromAsset
 import com.google.android.material.chip.ChipGroup
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import org.json.JSONObject
 
 class ReadingActivity : AppCompatActivity() {
@@ -26,10 +28,18 @@ class ReadingActivity : AppCompatActivity() {
     }
 
     private fun getData() {
+        // Right now the full data including instructions is read at this page, this may be moved to the pre quiz page
+        // in the future.
+
         val jsonFileString = getJsonDataFromAsset(applicationContext,
                 "reading_sample.json")
 
         val gson = Gson()
+        val quizType = object : TypeToken<Quiz>(){}.type
+        val quiz: Quiz = gson.fromJson(jsonFileString, quizType)
+
+        // TODO: Replace
+        Log.d("DEBUG", quiz.instructions)
     }
 
     private fun initView() {
