@@ -1,3 +1,9 @@
 package com.example.projectdva232v1.ui.learning_activities.classes
 
-data class Choice(val text: String, val correct: Boolean, val feedback: String)
+import com.fasterxml.jackson.annotation.JsonProperty
+
+data class Choice(
+    @JsonProperty("text") val text: String,
+    @JsonProperty("correct") val correct: Boolean,
+    @JsonProperty("feedback") val feedback: String
+)

@@ -10,8 +10,7 @@ import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.learning_activities.classes.Quiz
 import com.example.projectdva232v1.ui.learning_activities.utilities.getJsonDataFromAsset
 import com.google.android.material.chip.ChipGroup
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.fasterxml.jackson.module.kotlin.*
 import org.json.JSONObject
 
 class ReadingActivity : AppCompatActivity() {
@@ -34,12 +33,15 @@ class ReadingActivity : AppCompatActivity() {
         val jsonFileString = getJsonDataFromAsset(applicationContext,
                 "reading_sample.json")
 
-        val gson = Gson()
-        val quizType = object : TypeToken<Quiz>(){}.type
-        val quiz: Quiz = gson.fromJson(jsonFileString, quizType)
+        if (jsonFileString != null) {
+            val mapper = jacksonObjectMapper()
+            var quiz: Quiz = mapper.readValue<Quiz>(jsonFileString)
 
-        // TODO: Replace
-        Log.d("DEBUG", quiz.instructions)
+            Log.d("DEBUG", quiz.instructions)
+        } else {
+            // Could not read the quiz json
+            // Error
+        }
     }
 
     private fun initView() {
