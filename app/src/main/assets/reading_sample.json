@@ -31,6 +31,32 @@
         }
       ],
       "text2": "&nbsp;"
+    },
+    {
+      "text1": "against people suspected of sharing music files on the internet. The latest move by the International Federation of the Phonographic Industry (IFPI) ",
+      "choices": [
+        {
+          "text": "aimed",
+          "correct": false,
+          "feedback": "Incorrect"
+        },
+        {
+          "text": "targeted",
+          "correct": true,
+          "feedback": "Correct"
+        },
+        {
+          "text": "directed",
+          "correct": false,
+          "feedback": "Incorrect"
+        },
+        {
+          "text": "pointed",
+          "correct": false,
+          "feedback": "Incorrect"
+        }
+      ],
+      "text2": "&nbsp;"
     }
   ]
 }

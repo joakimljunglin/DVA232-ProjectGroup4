@@ -39,7 +39,15 @@ class ReadingActivity : AppCompatActivity() {
             val mapper = jacksonObjectMapper()
             var quiz: ReadingQuiz = mapper.readValue<ReadingQuiz>(jsonFileString)
 
-            Log.d("DEBUG", quiz.instructions)
+            // TODO: Add questions to questions list
+            for (item in quiz.items) {
+                Log.d("DEBUG", item.text1)
+                Log.d("DEBUG", item.text2)
+                for (choice in item.choices) {
+                    Log.d("DEBUG", choice.text)
+                    Log.d("DEBUG", choice.correct.toString())
+                }
+            }
 
             // Populate questions
         } else {
