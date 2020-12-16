@@ -1,11 +1,15 @@
 package com.example.projectdva232v1.ui.learning_activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.core.view.get
+import androidx.core.view.isVisible
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.learning_activities.classes.Choice
 import com.example.projectdva232v1.ui.learning_activities.classes.Question
@@ -13,14 +17,17 @@ import com.example.projectdva232v1.ui.learning_activities.classes.ReadingQuiz
 import com.example.projectdva232v1.ui.learning_activities.utilities.getJsonDataFromAsset
 import com.google.android.material.chip.ChipGroup
 import com.fasterxml.jackson.module.kotlin.*
-import org.json.JSONObject
+import com.google.android.material.chip.Chip
+import kotlin.system.exitProcess
 
 class ReadingActivity : AppCompatActivity() {
-    lateinit var btn: Button
+    lateinit var continueButton: Button
     lateinit var chips: ChipGroup
     lateinit var progressBar: ProgressBar
+    lateinit var questionTextView: TextView
     lateinit var questions: MutableList<Question>
     var currentQuestion = 1
+    var correctAnswers = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +41,10 @@ class ReadingActivity : AppCompatActivity() {
         // Right now the full data including instructions is read at this page, this may be moved to the pre quiz page
         // in the future.
 
-        val jsonFileString = getJsonDataFromAsset(applicationContext,
-                "reading_sample.json")
+        val jsonFileString = getJsonDataFromAsset(
+            applicationContext,
+            "reading_sample.json"
+        )
 
         if (jsonFileString != null) {
             val mapper = jacksonObjectMapper()
@@ -61,9 +70,10 @@ class ReadingActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        btn = findViewById(R.id.button)
-        chips = findViewById(R.id.chips)
+        continueButton = findViewById(R.id.button)
+        chips = findViewById(R.id.answerChips)
         progressBar = findViewById(R.id.progressBar)
+        questionTextView = findViewById(R.id.textViewQuestion)
 
         // Set progressbar max to number of total questions
         progressBar.max = questions.size
@@ -71,14 +81,34 @@ class ReadingActivity : AppCompatActivity() {
         loadQuestion(currentQuestion)
 
         // Next button should not be enabled until an answer has been selected
-        btn.isEnabled = false
-        btn.setOnClickListener {
+        continueButton.isEnabled = false
+        continueButton.setOnClickListener {
+            // Check if answer was correct
+            val answer = findViewById<Chip>(chips.checkedChipId).text
+            for (choice in questions[currentQuestion - 1].choices) {
+                if (choice.text == answer && choice.correct) correctAnswers++
+            }
+
+            // Update progress
+            progressBar.progress = currentQuestion
+
+            // Check whether quiz has been completed
+            if (currentQuestion == questions.size) {
+                // Send to result page
+                // TODO: Change to results page
+                val intent = Intent(this, TestSelector::class.java)
+                intent.putExtra("correctAnswers", correctAnswers)
+                intent.putExtra("totalAnswers", questions.size)
+                intent.putExtra("activity", "reading")
+                startActivity(intent)
+            }
+
             // Clear all selections
             chips.clearCheck()
 
             // Continue to next question
-            progressBar.progress = currentQuestion
             currentQuestion++
+            loadQuestion(currentQuestion)
         }
 
         // For when a chip is clicked
@@ -86,14 +116,29 @@ class ReadingActivity : AppCompatActivity() {
             // Enable continue button
 
             // Make sure the button does not get enabled when a chip is deselected
-            btn.isEnabled = chips.checkedChipId != View.NO_ID
+            continueButton.isEnabled = chips.checkedChipId != View.NO_ID
         }
     }
 
     private fun loadQuestion(currentQuestion: Int) {
         // Changes the chips and text to respond to the given question number
 
-        // Consider that the number of answers may not always be 4
-        // Therefore the number of chips needs to be dynamic
+        // Make sure the input is not a question which does not exist
+        if (currentQuestion <= questions.size) {
+            val q = questions[currentQuestion - 1]
+
+            // TODO: consider possibility that number of answers may not always be 4
+            if (q.choices.size > 4) throw IllegalArgumentException("Number of choices has to be 4 as of now")
+
+            questionTextView.text = q.text
+            for ((i, choice) in q.choices.withIndex()) {
+                (chips.getChildAt(i) as Chip).text = choice.text
+            }
+
+            if (currentQuestion == questions.size) {
+                // Show that it is the last one by changing continue button text to complete
+                continueButton.text = "complete"
+            }
+        }
     }
 }
