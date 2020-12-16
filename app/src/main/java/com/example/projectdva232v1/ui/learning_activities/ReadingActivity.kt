@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
 import androidx.core.view.get
 import androidx.core.view.isVisible
 import com.example.projectdva232v1.R
@@ -25,7 +26,10 @@ class ReadingActivity : AppCompatActivity() {
     lateinit var chips: ChipGroup
     lateinit var progressBar: ProgressBar
     lateinit var questionTextView: TextView
+    lateinit var contentTextView: TextView
     lateinit var questions: MutableList<Question>
+    lateinit var quiz: ReadingQuiz
+    lateinit var answers: MutableList<Choice>
     var currentQuestion = 1
     var correctAnswers = 0
 
@@ -48,7 +52,7 @@ class ReadingActivity : AppCompatActivity() {
 
         if (jsonFileString != null) {
             val mapper = jacksonObjectMapper()
-            var quiz: ReadingQuiz = mapper.readValue<ReadingQuiz>(jsonFileString)
+            quiz = mapper.readValue<ReadingQuiz>(jsonFileString)
 
             // Add questions to questions list
             questions = mutableListOf<Question>()
@@ -74,9 +78,15 @@ class ReadingActivity : AppCompatActivity() {
         chips = findViewById(R.id.answerChips)
         progressBar = findViewById(R.id.progressBar)
         questionTextView = findViewById(R.id.textViewQuestion)
+        contentTextView = findViewById(R.id.textViewReading)
+
+        answers = mutableListOf<Choice>()
 
         // Set progressbar max to number of total questions
         progressBar.max = questions.size
+
+        // Load text from quiz into the main text view
+        loadText()
 
         loadQuestion(currentQuestion)
 
@@ -84,9 +94,15 @@ class ReadingActivity : AppCompatActivity() {
         continueButton.isEnabled = false
         continueButton.setOnClickListener {
             // Check if answer was correct
+            // TODO: replace with just storing the bool in answers
             val answer = findViewById<Chip>(chips.checkedChipId).text
             for (choice in questions[currentQuestion - 1].choices) {
                 if (choice.text == answer && choice.correct) correctAnswers++
+            }
+
+            // Add answer to answers list
+            for (choice in questions[currentQuestion - 1].choices) {
+                if (choice.text == answer) answers.add(choice)
             }
 
             // Update progress
@@ -109,6 +125,9 @@ class ReadingActivity : AppCompatActivity() {
             // Continue to next question
             currentQuestion++
             loadQuestion(currentQuestion)
+
+            // Reload text so that the next question can be highlighted and previous answers filled in
+            loadText()
         }
 
         // For when a chip is clicked
@@ -118,6 +137,28 @@ class ReadingActivity : AppCompatActivity() {
             // Make sure the button does not get enabled when a chip is deselected
             continueButton.isEnabled = chips.checkedChipId != View.NO_ID
         }
+    }
+
+    private fun loadText() {
+        // Sets up the text for the scrolling content
+        var htmlText = ""
+
+        for ((i, item) in quiz.items.withIndex()) {
+            htmlText += item.text1
+            if (i + 1 == currentQuestion) {
+                // Highlighted selection
+                htmlText += "<span style=\"background-color: #f8ff00\">answer " + (i + 1).toString() + "</span>"
+            } else if (i + 1 > currentQuestion) {
+                // Non answered question
+                htmlText += "<span style=\"background-color: #DCDCDC\">answer " + (i + 1).toString() + "</span>"
+            } else if (i + 1 < currentQuestion) {
+                // Answered question
+                val answer = answers[i].text
+                htmlText += "<span style=\"background-color: #DCDCDC\">$answer</span>"
+            }
+            htmlText += item.text2
+        }
+        contentTextView.text = HtmlCompat.fromHtml(htmlText, 0)
     }
 
     private fun loadQuestion(currentQuestion: Int) {

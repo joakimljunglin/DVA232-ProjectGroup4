@@ -19,7 +19,7 @@
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/textViewWritingActivity"
+                android:id="@+id/textViewReading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/writing_activity_sample_text"
