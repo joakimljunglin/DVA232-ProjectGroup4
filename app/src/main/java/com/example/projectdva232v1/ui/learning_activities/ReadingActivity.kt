@@ -7,7 +7,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import com.example.projectdva232v1.R
-import com.example.projectdva232v1.ui.learning_activities.classes.Quiz
+import com.example.projectdva232v1.ui.learning_activities.classes.Question
+import com.example.projectdva232v1.ui.learning_activities.classes.ReadingQuiz
 import com.example.projectdva232v1.ui.learning_activities.utilities.getJsonDataFromAsset
 import com.google.android.material.chip.ChipGroup
 import com.fasterxml.jackson.module.kotlin.*
@@ -17,6 +18,7 @@ class ReadingActivity : AppCompatActivity() {
     lateinit var btn: Button
     lateinit var chips: ChipGroup
     lateinit var progressBar: ProgressBar
+    lateinit var questions: List<Question>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +37,13 @@ class ReadingActivity : AppCompatActivity() {
 
         if (jsonFileString != null) {
             val mapper = jacksonObjectMapper()
-            var quiz: Quiz = mapper.readValue<Quiz>(jsonFileString)
+            var quiz: ReadingQuiz = mapper.readValue<ReadingQuiz>(jsonFileString)
 
             Log.d("DEBUG", quiz.instructions)
+
+            // Populate questions
         } else {
+            // TODO
             // Could not read the quiz json
             // Error
         }
