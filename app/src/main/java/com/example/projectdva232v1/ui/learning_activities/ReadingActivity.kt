@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.core.view.get
 import androidx.core.view.isVisible
@@ -31,24 +32,26 @@ class ReadingActivity : AppCompatActivity() {
     lateinit var quiz: ReadingQuiz
     lateinit var answers: MutableList<Choice>
     var currentQuestion = 1
-    var correctAnswers = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reading)
 
         getData()
-        initView()
+        try {
+            initView()
+        }
+        catch (e: UninitializedPropertyAccessException) {
+            // Data could not be loaded, return to other page
+            val intent = Intent(this, TestSelector::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun getData() {
-        // Right now the full data including instructions is read at this page, this may be moved to the pre quiz page
-        // in the future.
+        // Get data from the JSON file and save it in local variables
 
-        val jsonFileString = getJsonDataFromAsset(
-            applicationContext,
-            "reading_sample.json"
-        )
+        val jsonFileString = getJsonDataFromAsset(applicationContext, "reading_sample.json")
 
         if (jsonFileString != null) {
             val mapper = jacksonObjectMapper()
@@ -65,11 +68,9 @@ class ReadingActivity : AppCompatActivity() {
                 questions.add(Question("Choose answer $i", mutableList))
                 i++
             }
-
         } else {
-            // TODO
-            // Could not read the quiz json
-            // Error
+            // Data could not be loaded
+            Toast.makeText(this, "Failed to load the reading test", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -79,28 +80,20 @@ class ReadingActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
         questionTextView = findViewById(R.id.textViewQuestion)
         contentTextView = findViewById(R.id.textViewReading)
-
         answers = mutableListOf<Choice>()
 
         // Set progressbar max to number of total questions
         progressBar.max = questions.size
 
-        // Load text from quiz into the main text view
+        // Load text from quiz onto the main text view
         loadText()
-
         loadQuestion(currentQuestion)
 
         // Next button should not be enabled until an answer has been selected
         continueButton.isEnabled = false
         continueButton.setOnClickListener {
-            // Check if answer was correct
-            // TODO: replace with just storing the bool in answers
-            val answer = findViewById<Chip>(chips.checkedChipId).text
-            for (choice in questions[currentQuestion - 1].choices) {
-                if (choice.text == answer && choice.correct) correctAnswers++
-            }
-
             // Add answer to answers list
+            val answer = findViewById<Chip>(chips.checkedChipId).text
             for (choice in questions[currentQuestion - 1].choices) {
                 if (choice.text == answer) answers.add(choice)
             }
@@ -113,6 +106,7 @@ class ReadingActivity : AppCompatActivity() {
                 // Send to result page
                 // TODO: Change to results page
                 val intent = Intent(this, TestSelector::class.java)
+                val correctAnswers = controlAnswers(answers)
                 intent.putExtra("correctAnswers", correctAnswers)
                 intent.putExtra("totalAnswers", questions.size)
                 intent.putExtra("activity", "reading")
@@ -132,25 +126,38 @@ class ReadingActivity : AppCompatActivity() {
 
         // For when a chip is clicked
         chips.setOnCheckedChangeListener { _, _ ->
-            // Enable continue button
-
-            // Make sure the button does not get enabled when a chip is deselected
+            // Enable continue button when a chip is selected
             continueButton.isEnabled = chips.checkedChipId != View.NO_ID
         }
     }
 
+    private fun controlAnswers(answers: MutableList<Choice>): Int {
+        // Count and return the number of correct answers
+
+        var correct = 0
+        for (item in answers) if (item.correct) correct++
+        return correct
+    }
+
     private fun loadText() {
-        // Sets up the text for the scrolling content
+        // Displays the main text as well as the gaps that need to be filled in
+        // The gap for the current question is highlighted
+        // Answered gaps are filled with the chosen answer
+
         var htmlText = ""
+
+        // The space displayed on both sides of the gap number
+        val tab = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
 
         for ((i, item) in quiz.items.withIndex()) {
             htmlText += item.text1
+            // Current logic needs to be redone if going back to a previous question or jumping between them becomes an option
             if (i + 1 == currentQuestion) {
-                // Highlighted selection
-                htmlText += "<span style=\"background-color: #f8ff00\">answer " + (i + 1).toString() + "</span>"
+                // Current question (highlight)
+                htmlText += "<span style=\"background-color: #f8ff00\"><u>" + tab + (i + 1).toString() + tab + "</u></span>"
             } else if (i + 1 > currentQuestion) {
-                // Non answered question
-                htmlText += "<span style=\"background-color: #DCDCDC\">answer " + (i + 1).toString() + "</span>"
+                // Unanswered question
+                htmlText += "<span style=\"background-color: #DCDCDC\"><u>" + tab + (i + 1).toString() + tab + "</u></span>"
             } else if (i + 1 < currentQuestion) {
                 // Answered question
                 val answer = answers[i].text
@@ -162,13 +169,15 @@ class ReadingActivity : AppCompatActivity() {
     }
 
     private fun loadQuestion(currentQuestion: Int) {
-        // Changes the chips and text to respond to the given question number
+        // Loads the specified question
+        // All chips are reset and changed to the new answers
+        // As of now it only works for questions with exactly 4 answer options
 
         // Make sure the input is not a question which does not exist
         if (currentQuestion <= questions.size) {
             val q = questions[currentQuestion - 1]
 
-            // TODO: consider possibility that number of answers may not always be 4
+            // TODO: consider possibility that the number of answers may not always be 4
             if (q.choices.size > 4) throw IllegalArgumentException("Number of choices has to be 4 as of now")
 
             questionTextView.text = q.text
@@ -176,9 +185,9 @@ class ReadingActivity : AppCompatActivity() {
                 (chips.getChildAt(i) as Chip).text = choice.text
             }
 
+            // If it is the last question, then the button text changes from "continue" to "complete"
             if (currentQuestion == questions.size) {
-                // Show that it is the last one by changing continue button text to complete
-                continueButton.text = "complete"
+                continueButton.text = getString(R.string.quiz_button_complete)
             }
         }
     }
