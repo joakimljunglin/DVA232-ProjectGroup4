@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.text.HtmlCompat
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.learning_activities.classes.Choice
 import com.example.projectdva232v1.ui.learning_activities.classes.ListeningQuiz
@@ -60,5 +61,16 @@ class ListeningActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar_listening)
         questionTextView = findViewById(R.id.textViewQuestion_listening)
         contentTextView = findViewById(R.id.textViewReading_listening)
+
+        // Load text from quiz onto the main text view
+        loadText()
+    }
+
+    private fun loadText() {
+        // Displays the main text as well as the gaps that need to be filled in
+        // The gap for the current question is highlighted
+        // Answered gaps are filled with the chosen answer
+
+        // TODO: fill, also see whether the function can be made independent of activity
     }
 }
