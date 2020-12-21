@@ -1,14 +1,11 @@
 package com.example.projectdva232v1.ui.homePage
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdva232v1.R
-import com.example.projectdva232v1.ui.example1.example1Fragment
 
 class RecyclerAdapter(
         private val difficultyList: List<DifficultyLevelItem>,

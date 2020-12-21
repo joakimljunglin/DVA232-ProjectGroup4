@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/grey"
     android:orientation="vertical"
     android:id="@+id/home"
@@ -23,7 +23,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         tools:listitem="@layout/recyclerview_difficultyitem" />
 
@@ -32,7 +32,7 @@
         android:id="@+id/recycler_view_activities"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="8dp"
         android:layout_gravity="center"
         tools:listitem="@layout/recyclerview_activityitem" />
 
