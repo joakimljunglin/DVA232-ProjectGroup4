@@ -6,5 +6,5 @@ data class ListeningQuiz(
     @JsonProperty("title" ) val title: String,
     @JsonProperty("instructions") val instructions: String,
     @JsonProperty("audio") val audio: String,
-    @JsonProperty("items") val items: List<ReadingQuizItem>
+    @JsonProperty("items") val items: List<ListeningQuizItem>
 )
