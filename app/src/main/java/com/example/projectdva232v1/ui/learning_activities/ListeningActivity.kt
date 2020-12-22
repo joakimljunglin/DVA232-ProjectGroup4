@@ -71,6 +71,23 @@ class ListeningActivity : AppCompatActivity() {
         // The gap for the current question is highlighted
         // Answered gaps are filled with the chosen answer
 
-        // TODO: fill, also see whether the function can be made independent of activity
+        var htmlText = ""
+
+        // The space displayed on both sides of the gap number
+        val tab = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+
+        for ((i, item) in quiz.items.withIndex()) {
+            htmlText += item.text
+
+            // Current question (highlight)
+            // htmlText += "<span style=\"background-color: #f8ff00\"><u>" + tab + (i + 1).toString() + tab + "</u></span>"
+
+            // Unanswered question
+            htmlText += "<span style=\"background-color: #DCDCDC\"><u>" + tab + (i + 1).toString() + tab + "</u></span>"
+
+            // Answered question
+            // htmlText += "<span style=\"background-color: #DCDCDC\">$answer</span>"
+        }
+        contentTextView.text = HtmlCompat.fromHtml(htmlText, 0)
     }
 }
