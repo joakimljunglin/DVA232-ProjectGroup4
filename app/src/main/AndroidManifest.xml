@@ -20,7 +20,9 @@
         <activity android:name=".ui.learning_activities.WritingActivity"
             android:parentActivityName=".ui.learning_activities.TestSelector"/>
         <activity android:name=".ui.learning_activities.ListeningActivity"
-            android:parentActivityName=".ui.learning_activities.TestSelector"/>
+            android:parentActivityName=".ui.learning_activities.TestSelector"
+            android:configChanges="screenSize|orientation|keyboardHidden"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"

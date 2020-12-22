@@ -1,18 +1,18 @@
 package com.example.projectdva232v1.ui.learning_activities
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import com.example.projectdva232v1.R
-import com.example.projectdva232v1.ui.learning_activities.classes.Choice
 import com.example.projectdva232v1.ui.learning_activities.classes.ListeningQuiz
-import com.example.projectdva232v1.ui.learning_activities.classes.Question
-import com.example.projectdva232v1.ui.learning_activities.classes.ReadingQuiz
 import com.example.projectdva232v1.ui.learning_activities.utilities.getJsonDataFromAsset
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
@@ -23,6 +23,7 @@ class ListeningActivity : AppCompatActivity() {
     lateinit var questionTextView: TextView
     lateinit var contentTextView: TextView
     lateinit var quiz: ListeningQuiz
+    var currentQuestion = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +65,10 @@ class ListeningActivity : AppCompatActivity() {
 
         // Load text from quiz onto the main text view
         loadText()
+        loadQuestion(currentQuestion)
+
+        // Next button should not be enabled until an answer has been selected
+        continueButton.isEnabled = false
     }
 
     private fun loadText() {
@@ -89,5 +94,11 @@ class ListeningActivity : AppCompatActivity() {
             // htmlText += "<span style=\"background-color: #DCDCDC\">$answer</span>"
         }
         contentTextView.text = HtmlCompat.fromHtml(htmlText, 0)
+    }
+
+    private fun loadQuestion(currentQuestion: Int) {
+        // Loads the specified question
+
+        questionTextView.text = "Complete sentence " + currentQuestion.toString()
     }
 }

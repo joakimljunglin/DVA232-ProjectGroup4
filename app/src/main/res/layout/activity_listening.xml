@@ -57,7 +57,14 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!-- Insert listening activity equivalent of choice chips -->
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/enter_answer"
+                android:inputType="textPersonName"
+                android:text="" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

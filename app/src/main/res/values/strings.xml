@@ -16,4 +16,5 @@
     <string name="writing_activity_sample_source"><![CDATA[Adapted from (Jensen & Meckling, 1976).]]></string>
     <string name="quiz_button_complete">complete</string>
     <string name="quiz_button_continue">continue</string>
+    <string name="enter_answer">Enter answer</string>
 </resources>
