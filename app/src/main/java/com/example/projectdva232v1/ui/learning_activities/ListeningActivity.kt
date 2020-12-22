@@ -5,12 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
+import androidx.core.widget.addTextChangedListener
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.learning_activities.classes.ListeningQuiz
 import com.example.projectdva232v1.ui.learning_activities.utilities.getJsonDataFromAsset
@@ -22,6 +20,7 @@ class ListeningActivity : AppCompatActivity() {
     lateinit var progressBar: ProgressBar
     lateinit var questionTextView: TextView
     lateinit var contentTextView: TextView
+    lateinit var answerField: EditText
     lateinit var quiz: ListeningQuiz
     var currentQuestion = 1
 
@@ -62,10 +61,16 @@ class ListeningActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar_listening)
         questionTextView = findViewById(R.id.textViewQuestion_listening)
         contentTextView = findViewById(R.id.textViewReading_listening)
+        answerField = findViewById(R.id.editTextListeningAnswer)
 
         // Load text from quiz onto the main text view
         loadText()
         loadQuestion(currentQuestion)
+
+        answerField.addTextChangedListener {
+            // Enable continue when there is some sort of input text
+            continueButton.isEnabled = answerField.text.isNotEmpty()
+        }
 
         // Next button should not be enabled until an answer has been selected
         continueButton.isEnabled = false
