@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import com.example.projectdva232v1.R
+import com.example.projectdva232v1.ui.learning_activities.classes.Answer
 import com.example.projectdva232v1.ui.learning_activities.classes.Choice
 import com.example.projectdva232v1.ui.learning_activities.classes.Question
 import com.example.projectdva232v1.ui.learning_activities.classes.ReadingQuiz
@@ -28,8 +29,8 @@ class ReadingActivity : AppCompatActivity() {
     lateinit var contentTextView: TextView
     lateinit var questions: MutableList<Question>
     lateinit var quiz: ReadingQuiz
-    lateinit var answers: MutableList<Choice>
-    var currentQuestion = 1
+    lateinit var answers: MutableList<Answer>
+    var currentQuestion = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +50,8 @@ class ReadingActivity : AppCompatActivity() {
     private fun getData() {
         // Get data from the JSON file and save it in local variables
 
+        answers = mutableListOf<Answer>()
+
         val jsonFileString = getJsonDataFromAsset(applicationContext, "reading_sample.json")
 
         if (jsonFileString != null) {
@@ -66,6 +69,15 @@ class ReadingActivity : AppCompatActivity() {
                 questions.add(Question("Choose answer $i", mutableList))
                 i++
             }
+
+            // Fill answers list
+            for (question in questions) {
+                for (choice in question.choices) {
+                    if (choice.correct) {
+                        answers.add(Answer(choice.text))
+                    }
+                }
+            }
         } else {
             // Data could not be loaded
             Toast.makeText(this, "Failed to load the reading test", Toast.LENGTH_LONG).show()
@@ -79,7 +91,6 @@ class ReadingActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
         questionTextView = findViewById(R.id.textViewQuestion)
         contentTextView = findViewById(R.id.textViewReading)
-        answers = mutableListOf<Choice>()
 
         // Set progressbar max to number of total questions
         progressBar.max = questions.size
@@ -93,15 +104,15 @@ class ReadingActivity : AppCompatActivity() {
         continueButton.setOnClickListener {
             // Add answer to answers list
             val answer = findViewById<Chip>(chips.checkedChipId).text
-            for (choice in questions[currentQuestion - 1].choices) {
-                if (choice.text == answer) answers.add(choice)
+            for (choice in questions[currentQuestion].choices) {
+                if (choice.text == answer) answers[currentQuestion].answer(choice.text)
             }
 
             // Update progress
-            progressBar.progress = currentQuestion
+            progressBar.progress = getProgress()
 
             // Check whether quiz has been completed
-            if (currentQuestion == questions.size) {
+            if (currentQuestion + 1 == questions.size) {
                 // Send to result page
                 // TODO: Change to results page
                 val intent = Intent(this, TestSelector::class.java)
@@ -138,7 +149,19 @@ class ReadingActivity : AppCompatActivity() {
         }
     }
 
-    private fun controlAnswers(answers: MutableList<Choice>): Int {
+    private fun getProgress(): Int {
+        // Returns number of answered questions
+
+        var progress = 0
+
+        for (answer in answers) {
+            if (answer.answered) progress++
+        }
+
+        return progress
+    }
+
+    private fun controlAnswers(answers: MutableList<Answer>): Int {
         // Count and return the number of correct answers
 
         var correct = 0
@@ -159,15 +182,15 @@ class ReadingActivity : AppCompatActivity() {
         for ((i, item) in quiz.items.withIndex()) {
             htmlText += item.text1
             // Current logic needs to be redone if going back to a previous question or jumping between them becomes an option
-            if (i + 1 == currentQuestion) {
+            if (i == currentQuestion) {
                 // Current question (highlight)
                 htmlText += "<span style=\"background-color: #f8ff00\"><u>" + tab + (i + 1).toString() + tab + "</u></span>"
-            } else if (i + 1 > currentQuestion) {
+            } else if (i > currentQuestion) {
                 // Unanswered question
                 htmlText += "<span style=\"background-color: #DCDCDC\"><u>" + tab + (i + 1).toString() + tab + "</u></span>"
-            } else if (i + 1 < currentQuestion) {
+            } else if (i < currentQuestion) {
                 // Answered question
-                val answer = answers[i].text
+                val answer = answers[i].enteredAnswer
                 htmlText += "<span style=\"background-color: #DCDCDC\">$answer</span>"
             }
             htmlText += item.text2
@@ -181,8 +204,8 @@ class ReadingActivity : AppCompatActivity() {
         // As of now it only works for questions with exactly 4 answer options
 
         // Make sure the input is not a question which does not exist
-        if (currentQuestion <= questions.size) {
-            if (currentQuestion > 1) {
+        if (currentQuestion + 1 <= questions.size) {
+            if (currentQuestion > 0) {
                 // Show previous button
                 previousButton.visibility = View.VISIBLE
             } else {
@@ -190,7 +213,7 @@ class ReadingActivity : AppCompatActivity() {
                 previousButton.visibility = View.GONE
             }
 
-            val q = questions[currentQuestion - 1]
+            val q = questions[currentQuestion]
 
             // TODO: consider possibility that the number of answers may not always be 4
             if (q.choices.size > 4) throw IllegalArgumentException("Number of choices has to be 4 as of now")
@@ -201,7 +224,7 @@ class ReadingActivity : AppCompatActivity() {
             }
 
             // If it is the last question, then the button text changes from "continue" to "complete"
-            if (currentQuestion == questions.size) {
+            if (currentQuestion + 1 == questions.size) {
                 continueButton.text = getString(R.string.quiz_button_complete)
             } else {
                 continueButton.text = getString(R.string.quiz_button_continue)
