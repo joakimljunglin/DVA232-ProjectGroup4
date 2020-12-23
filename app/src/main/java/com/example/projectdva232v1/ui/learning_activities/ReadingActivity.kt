@@ -9,7 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
-import androidx.core.view.iterator
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.learning_activities.classes.Answer
 import com.example.projectdva232v1.ui.learning_activities.classes.Choice
@@ -26,22 +25,25 @@ class ReadingActivity : AppCompatActivity() {
     lateinit var previousButton: Button
     lateinit var chips: ChipGroup
     lateinit var progressBar: ProgressBar
-    lateinit var questionTextView: TextView
-    lateinit var contentTextView: TextView
-    lateinit var questions: MutableList<Question>
+    lateinit var questionTitleTextView: TextView // The text view displaying the current question number
+    lateinit var mainContentTextView: TextView // The text view displaying all the html content
     lateinit var quiz: ReadingQuiz
-    lateinit var answers: MutableList<Answer>
+    lateinit var questions: MutableList<Question> // The questions, including the possible answers
+    lateinit var answers: MutableList<Answer> // List of the user's selected answers
     var currentQuestion = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reading)
 
-        getData()
         try {
+            getData()
             initView()
         } catch (e: UninitializedPropertyAccessException) {
-            // Data could not be loaded, return to other page
+            // Data could not be loaded, return to previous page
+            Toast.makeText(this, "Failed to load the reading test", Toast.LENGTH_LONG).show()
+
+            // TODO: Set to select activity page once implemented
             val intent = Intent(this, TestSelector::class.java)
             startActivity(intent)
         }
@@ -49,8 +51,6 @@ class ReadingActivity : AppCompatActivity() {
 
     private fun getData() {
         // Get data from the JSON file and save it in local variables
-
-        answers = mutableListOf<Answer>()
 
         val jsonFileString = getJsonDataFromAsset(applicationContext, "reading_sample.json")
 
@@ -70,7 +70,8 @@ class ReadingActivity : AppCompatActivity() {
                 i++
             }
 
-            // Fill answers list
+            // Initialize & fill answers list
+            answers = mutableListOf<Answer>()
             for (question in questions) {
                 for (choice in question.choices) {
                     if (choice.correct) {
@@ -78,9 +79,6 @@ class ReadingActivity : AppCompatActivity() {
                     }
                 }
             }
-        } else {
-            // Data could not be loaded
-            Toast.makeText(this, "Failed to load the reading test", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -89,8 +87,8 @@ class ReadingActivity : AppCompatActivity() {
         previousButton = findViewById(R.id.button_previous)
         chips = findViewById(R.id.answerChips)
         progressBar = findViewById(R.id.progressBar)
-        questionTextView = findViewById(R.id.textViewQuestion)
-        contentTextView = findViewById(R.id.textViewReading)
+        questionTitleTextView = findViewById(R.id.textViewQuestion)
+        mainContentTextView = findViewById(R.id.textViewReading)
 
         // Set progressbar max to number of total questions
         progressBar.max = questions.size
@@ -167,6 +165,9 @@ class ReadingActivity : AppCompatActivity() {
 
         // Reload text
         loadText()
+
+        // Update progress
+        progressBar.progress = getProgress()
     }
 
     private fun getProgress(): Int {
@@ -221,7 +222,7 @@ class ReadingActivity : AppCompatActivity() {
 
             htmlText += item.text2
         }
-        contentTextView.text = HtmlCompat.fromHtml(htmlText, 0)
+        mainContentTextView.text = HtmlCompat.fromHtml(htmlText, 0)
     }
 
     private fun loadQuestion(currentQuestion: Int) {
@@ -247,7 +248,7 @@ class ReadingActivity : AppCompatActivity() {
             // Clear selection from previous question
             chips.clearCheck()
 
-            questionTextView.text = q.text
+            questionTitleTextView.text = q.text
             for ((i, choice) in q.choices.withIndex()) {
                 val chip = (chips.getChildAt(i) as Chip)
                 chip.text = choice.text
