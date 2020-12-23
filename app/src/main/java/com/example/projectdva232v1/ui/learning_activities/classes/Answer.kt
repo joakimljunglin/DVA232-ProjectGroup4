@@ -11,4 +11,11 @@ class Answer(correctAnswer: String) {
         correct = answer == correctAnswer
         answered = true
     }
+
+    fun clear() {
+        // Resets the question to its unanswered state
+        enteredAnswer = ""
+        correct = false
+        answered = false
+    }
 }

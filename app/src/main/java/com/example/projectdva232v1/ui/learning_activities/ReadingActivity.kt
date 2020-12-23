@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
+import androidx.core.view.iterator
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.learning_activities.classes.Answer
 import com.example.projectdva232v1.ui.learning_activities.classes.Choice
@@ -39,8 +40,7 @@ class ReadingActivity : AppCompatActivity() {
         getData()
         try {
             initView()
-        }
-        catch (e: UninitializedPropertyAccessException) {
+        } catch (e: UninitializedPropertyAccessException) {
             // Data could not be loaded, return to other page
             val intent = Intent(this, TestSelector::class.java)
             startActivity(intent)
@@ -102,44 +102,11 @@ class ReadingActivity : AppCompatActivity() {
         // Next button should not be enabled until an answer has been selected
         continueButton.isEnabled = false
         continueButton.setOnClickListener {
-            // Add answer to answers list
-            val answer = findViewById<Chip>(chips.checkedChipId).text
-            for (choice in questions[currentQuestion].choices) {
-                if (choice.text == answer) answers[currentQuestion].answer(choice.text)
-            }
-
-            // Update progress
-            progressBar.progress = getProgress()
-
-            // Check whether quiz has been completed
-            if (currentQuestion + 1 == questions.size) {
-                // Send to result page
-                // TODO: Change to results page
-                val intent = Intent(this, TestSelector::class.java)
-                val correctAnswers = controlAnswers(answers)
-                intent.putExtra("correctAnswers", correctAnswers)
-                intent.putExtra("totalAnswers", questions.size)
-                intent.putExtra("activity", "reading")
-                startActivity(intent)
-            }
-
-            // Clear all selections
-            chips.clearCheck()
-
-            // Continue to next question
-            currentQuestion++
-            loadQuestion(currentQuestion)
-
-            // Reload text so that the next question can be highlighted and previous answers filled in
-            loadText()
+            questionContinue()
         }
 
         previousButton.setOnClickListener {
-            currentQuestion--
-            loadQuestion(currentQuestion)
-
-            // Reload text
-            loadText()
+            questionPrevious()
         }
 
         // For when a chip is clicked
@@ -147,6 +114,53 @@ class ReadingActivity : AppCompatActivity() {
             // Enable continue button when a chip is selected
             continueButton.isEnabled = chips.checkedChipId != View.NO_ID
         }
+    }
+
+    private fun questionContinue() {
+        // When clicking the continue/complete button
+
+        // Add answer to answers list
+        val answer = findViewById<Chip>(chips.checkedChipId).text
+        for (choice in questions[currentQuestion].choices) {
+            if (choice.text == answer) answers[currentQuestion].answer(choice.text)
+        }
+
+        // Update progress
+        progressBar.progress = getProgress()
+
+        // Check whether quiz has been completed
+        if (currentQuestion + 1 == questions.size) {
+            // Send to result page
+            // TODO: Change to results page
+            val intent = Intent(this, TestSelector::class.java)
+            val correctAnswers = controlAnswers(answers)
+            intent.putExtra("correctAnswers", correctAnswers)
+            intent.putExtra("totalAnswers", questions.size)
+            intent.putExtra("activity", "reading")
+            startActivity(intent)
+        }
+
+        // Continue to next question
+        currentQuestion++
+        loadQuestion(currentQuestion)
+
+        // Reload text so that the next question can be highlighted and previous answers filled in
+        loadText()
+    }
+
+    private fun questionPrevious() {
+        // When clicking the previous question button
+
+        // If no chip is selected, set answer to unanswered
+        if (chips.checkedChipId == View.NO_ID) {
+            answers[currentQuestion].clear()
+        }
+
+        currentQuestion--
+        loadQuestion(currentQuestion)
+
+        // Reload text
+        loadText()
     }
 
     private fun getProgress(): Int {
@@ -224,9 +238,21 @@ class ReadingActivity : AppCompatActivity() {
             // TODO: consider possibility that the number of answers may not always be 4
             if (q.choices.size > 4) throw IllegalArgumentException("Number of choices has to be 4 as of now")
 
+            // Clear selection from previous question
+            chips.clearCheck()
+
             questionTextView.text = q.text
             for ((i, choice) in q.choices.withIndex()) {
-                (chips.getChildAt(i) as Chip).text = choice.text
+                val chip = (chips.getChildAt(i) as Chip)
+                chip.text = choice.text
+
+                // Check if currentQuestion has already been answered
+                // If answered, pre-select the chip of the answer
+                if (answers[currentQuestion].answered) {
+                    if (chip.text == answers[currentQuestion].enteredAnswer) {
+                        chips.check(chip.id)
+                    }
+                }
             }
 
             // If it is the last question, then the button text changes from "continue" to "complete"
