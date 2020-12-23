@@ -181,18 +181,24 @@ class ReadingActivity : AppCompatActivity() {
 
         for ((i, item) in quiz.items.withIndex()) {
             htmlText += item.text1
-            // Current logic needs to be redone if going back to a previous question or jumping between them becomes an option
+
             if (i == currentQuestion) {
-                // Current question (highlight)
-                htmlText += "<span style=\"background-color: #f8ff00\"><u>" + tab + (i + 1).toString() + tab + "</u></span>"
-            } else if (i > currentQuestion) {
-                // Unanswered question
-                htmlText += "<span style=\"background-color: #DCDCDC\"><u>" + tab + (i + 1).toString() + tab + "</u></span>"
-            } else if (i < currentQuestion) {
-                // Answered question
-                val answer = answers[i].enteredAnswer
-                htmlText += "<span style=\"background-color: #DCDCDC\">$answer</span>"
+                // Highlight current question with different background-color
+                htmlText += "<span style=\"background-color: #f8ff00\">"
+            } else {
+                htmlText += "<span style=\"background-color: #DCDCDC\">"
             }
+
+            if (answers[i].answered) {
+                // Display answer if answered
+                htmlText += answers[i].enteredAnswer
+            } else {
+                // Display question number surrounded by tabs if not
+                htmlText += "<u>" + tab + (i + 1).toString() + tab + "</u>"
+            }
+
+            htmlText += "</span>"
+
             htmlText += item.text2
         }
         contentTextView.text = HtmlCompat.fromHtml(htmlText, 0)
