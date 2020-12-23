@@ -151,9 +151,15 @@ class ReadingActivity : AppCompatActivity() {
     private fun questionPrevious() {
         // When clicking the previous question button
 
-        // If no chip is selected, set answer to unanswered
         if (chips.checkedChipId == View.NO_ID) {
+            // If no chip is selected, set answer to unanswered
             answers[currentQuestion].clear()
+        } else {
+            // Set answer to selected chip
+            val answer = findViewById<Chip>(chips.checkedChipId).text
+            for (choice in questions[currentQuestion].choices) {
+                if (choice.text == answer) answers[currentQuestion].answer(choice.text)
+            }
         }
 
         currentQuestion--
