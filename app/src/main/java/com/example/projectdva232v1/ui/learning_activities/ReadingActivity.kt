@@ -1,29 +1,27 @@
 package com.example.projectdva232v1.ui.learning_activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
-import androidx.core.view.get
-import androidx.core.view.isVisible
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.learning_activities.classes.Choice
 import com.example.projectdva232v1.ui.learning_activities.classes.Question
 import com.example.projectdva232v1.ui.learning_activities.classes.ReadingQuiz
 import com.example.projectdva232v1.ui.learning_activities.utilities.getJsonDataFromAsset
-import com.google.android.material.chip.ChipGroup
-import com.fasterxml.jackson.module.kotlin.*
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import com.google.android.material.chip.Chip
-import kotlin.system.exitProcess
+import com.google.android.material.chip.ChipGroup
 
 class ReadingActivity : AppCompatActivity() {
     lateinit var continueButton: Button
+    lateinit var previousButton: Button
     lateinit var chips: ChipGroup
     lateinit var progressBar: ProgressBar
     lateinit var questionTextView: TextView
@@ -76,6 +74,7 @@ class ReadingActivity : AppCompatActivity() {
 
     private fun initView() {
         continueButton = findViewById(R.id.button)
+        previousButton = findViewById(R.id.button_previous)
         chips = findViewById(R.id.answerChips)
         progressBar = findViewById(R.id.progressBar)
         questionTextView = findViewById(R.id.textViewQuestion)
@@ -121,6 +120,14 @@ class ReadingActivity : AppCompatActivity() {
             loadQuestion(currentQuestion)
 
             // Reload text so that the next question can be highlighted and previous answers filled in
+            loadText()
+        }
+
+        previousButton.setOnClickListener {
+            currentQuestion--
+            loadQuestion(currentQuestion)
+
+            // Reload text
             loadText()
         }
 
@@ -175,6 +182,14 @@ class ReadingActivity : AppCompatActivity() {
 
         // Make sure the input is not a question which does not exist
         if (currentQuestion <= questions.size) {
+            if (currentQuestion > 1) {
+                // Show previous button
+                previousButton.visibility = View.VISIBLE
+            } else {
+                // Hide previous button (on the first question)
+                previousButton.visibility = View.GONE
+            }
+
             val q = questions[currentQuestion - 1]
 
             // TODO: consider possibility that the number of answers may not always be 4
@@ -188,6 +203,8 @@ class ReadingActivity : AppCompatActivity() {
             // If it is the last question, then the button text changes from "continue" to "complete"
             if (currentQuestion == questions.size) {
                 continueButton.text = getString(R.string.quiz_button_complete)
+            } else {
+                continueButton.text = getString(R.string.quiz_button_continue)
             }
         }
     }
