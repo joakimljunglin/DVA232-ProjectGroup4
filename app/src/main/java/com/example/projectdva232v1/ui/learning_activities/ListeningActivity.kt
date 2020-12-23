@@ -1,10 +1,7 @@
 package com.example.projectdva232v1.ui.learning_activities
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
@@ -14,6 +11,7 @@ import com.example.projectdva232v1.ui.learning_activities.classes.ListeningQuiz
 import com.example.projectdva232v1.ui.learning_activities.utilities.getJsonDataFromAsset
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+
 
 class ListeningActivity : AppCompatActivity() {
     lateinit var continueButton: Button
@@ -31,8 +29,7 @@ class ListeningActivity : AppCompatActivity() {
         getData()
         try {
             initView()
-        }
-        catch (e: UninitializedPropertyAccessException) {
+        } catch (e: UninitializedPropertyAccessException) {
             // Data could not be loaded, return to other page
             val intent = Intent(this, TestSelector::class.java)
             startActivity(intent)
@@ -64,7 +61,7 @@ class ListeningActivity : AppCompatActivity() {
         answerField = findViewById(R.id.editTextListeningAnswer)
 
         // Load text from quiz onto the main text view
-        loadText()
+        loadText(currentQuestion)
         loadQuestion(currentQuestion)
 
         answerField.addTextChangedListener {
@@ -74,11 +71,13 @@ class ListeningActivity : AppCompatActivity() {
 
         // Next button should not be enabled until an answer has been selected
         continueButton.isEnabled = false
+        continueButton.setOnClickListener {
+            answerField.text.clear()
+        }
     }
 
-    private fun loadText() {
-        // Displays the main text as well as the gaps that need to be filled in
-        // The gap for the current question is highlighted
+    private fun loadText(currentQuestion: Int) {
+        // Displays the text for the current question
         // Answered gaps are filled with the chosen answer
 
         var htmlText = ""
@@ -89,11 +88,13 @@ class ListeningActivity : AppCompatActivity() {
         for ((i, item) in quiz.items.withIndex()) {
             htmlText += item.text
 
-            // Current question (highlight)
-            // htmlText += "<span style=\"background-color: #f8ff00\"><u>" + tab + (i + 1).toString() + tab + "</u></span>"
-
-            // Unanswered question
-            htmlText += "<span style=\"background-color: #DCDCDC\"><u>" + tab + (i + 1).toString() + tab + "</u></span>"
+            if (currentQuestion == i + 1) {
+                // Current question (highlight)
+                htmlText += "<span style=\"background-color: #f8ff00\"><u>" + tab + (i + 1).toString() + tab + "</u></span>"
+            } else {
+                // Unanswered question
+                htmlText += "<span style=\"background-color: #DCDCDC\"><u>" + tab + (i + 1).toString() + tab + "</u></span>"
+            }
 
             // Answered question
             // htmlText += "<span style=\"background-color: #DCDCDC\">$answer</span>"
