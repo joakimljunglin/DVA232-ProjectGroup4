@@ -1,8 +1,11 @@
 package com.example.projectdva232v1.ui.learning_activities.classes
 
-class Answer(correctAnswer: String) {
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+class Answer(private val correctAnswer: String): Parcelable {
     var enteredAnswer: String = ""
-    val correctAnswer: String = correctAnswer
     var correct: Boolean = false
     var answered: Boolean = false
 

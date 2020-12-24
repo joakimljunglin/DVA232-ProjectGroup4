@@ -2,6 +2,8 @@ package com.example.projectdva232v1.ui.learning_activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -37,7 +39,16 @@ class ReadingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reading)
 
         try {
-            getData()
+            if (savedInstanceState == null) {
+                // Get the required data only when there is no saved instance
+                getData()
+            } else {
+                // Restore values from saved instance
+                currentQuestion = savedInstanceState.getInt("CURRENT_QUESTION")
+                questions = savedInstanceState.getParcelableArrayList<Question>("QUESTIONS")?.toMutableList()!!
+                answers = savedInstanceState.getParcelableArrayList<Answer>("ANSWERS")?.toMutableList()!!
+                quiz = savedInstanceState.getParcelable<ReadingQuiz>("QUIZ")!!
+            }
             initView()
         } catch (e: UninitializedPropertyAccessException) {
             // Data could not be loaded, return to previous page
@@ -47,6 +58,15 @@ class ReadingActivity : AppCompatActivity() {
             val intent = Intent(this, TestSelector::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putInt("CURRENT_QUESTION", currentQuestion)
+        outState.putParcelableArrayList("QUESTIONS", ArrayList<Parcelable>(questions))
+        outState.putParcelableArrayList("ANSWERS", ArrayList<Parcelable>(answers))
+        outState.putParcelable("QUIZ", quiz)
     }
 
     private fun getData() {
@@ -97,8 +117,9 @@ class ReadingActivity : AppCompatActivity() {
         loadText()
         loadQuestion(currentQuestion)
 
-        // Next button should not be enabled until an answer has been selected
-        continueButton.isEnabled = false
+        // Next button should not be enabled if no answer is selected
+        continueButton.isEnabled = chips.checkedChipId != View.NO_ID
+
         continueButton.setOnClickListener {
             questionContinue()
         }
