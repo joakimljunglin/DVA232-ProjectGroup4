@@ -1,6 +1,8 @@
 package com.example.projectdva232v1.ui.learning_activities
 
 import android.content.Intent
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
@@ -19,11 +21,14 @@ import com.example.projectdva232v1.ui.learning_activities.utilities.getProgress
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.google.android.material.chip.Chip
+import java.io.File
 
 
 class ListeningActivity : AppCompatActivity() {
     lateinit var continueButton: Button
     lateinit var previousButton: Button
+    lateinit var audioButton: Button
+    lateinit var mediaPlayer: MediaPlayer
     lateinit var progressBar: ProgressBar
     lateinit var questionTextView: TextView
     lateinit var contentTextView: TextView
@@ -31,6 +36,7 @@ class ListeningActivity : AppCompatActivity() {
     lateinit var quiz: ListeningQuiz
     lateinit var answers: MutableList<Answer> // List of the user's selected answers
     var currentQuestion = 0
+    var audioFinishedPlaying = false // Since the audio should not be replayable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +49,8 @@ class ListeningActivity : AppCompatActivity() {
             } else {
                 // Restore values from saved instance
                 currentQuestion = savedInstanceState.getInt("CURRENT_QUESTION")
-                answers = savedInstanceState.getParcelableArrayList<Answer>("ANSWERS")?.toMutableList()!!
+                answers =
+                    savedInstanceState.getParcelableArrayList<Answer>("ANSWERS")?.toMutableList()!!
                 quiz = savedInstanceState.getParcelable<ListeningQuiz>("QUIZ")!!
             }
             initView()
@@ -85,6 +92,7 @@ class ListeningActivity : AppCompatActivity() {
     private fun initView() {
         continueButton = findViewById(R.id.continue_button_listening)
         previousButton = findViewById(R.id.previous_button_listening)
+        audioButton = findViewById(R.id.audio_button)
         progressBar = findViewById(R.id.progressBar_listening)
         questionTextView = findViewById(R.id.textViewQuestion_listening)
         contentTextView = findViewById(R.id.textViewReading_listening)
@@ -108,9 +116,80 @@ class ListeningActivity : AppCompatActivity() {
             questionPrevious()
         }
 
+        audioButton.setOnClickListener {
+            toggleAudio()
+        }
+
         answerField.addTextChangedListener {
             // Enable continue when there is some sort of input text
             continueButton.isEnabled = answerField.text.isNotEmpty()
+        }
+    }
+
+    private fun toggleAudio() {
+        // Pauses or plays the listening test audio
+
+        if (audioFinishedPlaying) return // Do not allow playing the audio once it has finished
+
+        // Create MediaPlayer if not already initialized
+        if (!this::mediaPlayer.isInitialized) {
+            // Right now the JSON sample only provides a string containing the name of the audio file
+            // Change later depending on where the audio files are actually stored
+
+            // Get the filename without the ".mp3" extension
+            val fileName = File(quiz.audio).nameWithoutExtension
+            val audioUri =
+                Uri.parse("android.resource://" + this.packageName + "/raw/" + fileName)
+
+            mediaPlayer = MediaPlayer.create(this, audioUri)
+
+            mediaPlayer.setOnCompletionListener {
+                // For when the audio has finished playing
+                // It should not be replayable after this point
+                stopPlayer()
+                audioFinishedPlaying = true
+            }
+        }
+
+        if (mediaPlayer.isPlaying) {
+            pausePlayer()
+        } else {
+            startPlayer()
+        }
+
+        // Also change text string from play to pause etc
+        // OR have 2 different buttons and hide/show them if easier
+    }
+
+    private fun startPlayer() {
+        // Starting or resuming the audio
+        mediaPlayer.start()
+
+        // Update text of button to pause audio
+        audioButton.text = this.resources.getString(R.string.pause_audio)
+    }
+
+    private fun pausePlayer() {
+        // Pausing the audio
+        mediaPlayer.pause()
+
+        // Update text of button to play audio
+        audioButton.text = this.resources.getString(R.string.play_audio)
+    }
+
+    private fun stopPlayer() {
+        // For releasing the MediaPlayer object
+
+        if (this::mediaPlayer.isInitialized) {
+            mediaPlayer.release()
+        }
+    }
+
+    // When leaving the app
+    override fun onStop() {
+        super.onStop()
+        if (this::mediaPlayer.isInitialized) {
+            mediaPlayer.pause()
         }
     }
 
@@ -215,7 +294,8 @@ class ListeningActivity : AppCompatActivity() {
                 previousButton.visibility = View.GONE
             }
 
-            val text = getString(R.string.complete_sentence) + " " + (currentQuestion + 1).toString()
+            val text =
+                getString(R.string.complete_sentence) + " " + (currentQuestion + 1).toString()
             questionTextView.text = text
 
 

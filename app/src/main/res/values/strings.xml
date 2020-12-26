@@ -20,4 +20,6 @@
     <string name="enter_answer">Enter answer</string>
 
     <string name="complete_sentence">Complete sentence</string>
+    <string name="play_audio">Play audio</string>
+    <string name="pause_audio">Pause audio</string>
 </resources>
