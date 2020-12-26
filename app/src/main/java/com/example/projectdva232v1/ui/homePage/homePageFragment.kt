@@ -1,35 +1,33 @@
 package com.example.projectdva232v1.ui.homePage
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdva232v1.R
-import com.example.projectdva232v1.ui.example1.example1Fragment
-import com.example.projectdva232v1.ui.example2.example2Fragment
-import com.example.projectdva232v1.ui.example3.example3Fragment
-import com.example.projectdva232v1.ui.example4.example4Fragment
-import com.example.projectdva232v1.ui.example5.example5Fragment
 
 
 class homePageFragment : Fragment(), RecyclerAdapterActivity.OnItemClickListener {
 
     private lateinit var homePageModel: HomePageModel
+    private var difficultySelected:String =""
+    private lateinit var root:View
 
 override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
 ): View? {
     homePageModel =
             ViewModelProvider(this).get(HomePageModel::class.java)
 
-    val root = inflater.inflate(R.layout.fragment_home_page, container, false)
+    root = inflater.inflate(R.layout.fragment_home_page, container, false)
 
     //Create an array with the possible difficulties
     val possibleDifficulties = resources.getStringArray(R.array.difficulty_array)
@@ -52,9 +50,9 @@ override fun onCreateView(
     val activityList = ArrayList<ActivityItem>()
     for (act in possibleActivities) {
         var icon = this.resources.getIdentifier(
-                act.toLowerCase(),
-                "drawable",
-                activity?.baseContext?.packageName
+            act.toLowerCase(),
+            "drawable",
+            activity?.baseContext?.packageName
         )
         val item = ActivityItem(act, icon)
         activityList += item
@@ -62,12 +60,7 @@ override fun onCreateView(
     // Setup for the recycler view
     val rva = root.findViewById<RecyclerView>(R.id.recycler_view_activities)
     rva.adapter = RecyclerAdapterActivity(activityList, this)
-    val orientation = activity?.resources?.configuration?.orientation
-    if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-        rva.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false)
-    } else if (orientation == Configuration.ORIENTATION_PORTRAIT){
-        rva.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
-    }
+    rva.layoutManager = LinearLayoutManager(activity)
     rva.setHasFixedSize(true)
 
     return root
@@ -75,29 +68,28 @@ override fun onCreateView(
 
 override fun onItemClick(position: Int) {
 
-    var fragment: Fragment
-    //TODO: replace with the right activity fragment
-    when (position) {
-        0 -> fragment = example1Fragment()
+    if(!difficultySelected.isNullOrEmpty()&&difficultySelected.isNotBlank()){
+        var action = when (position) {
+            0 -> homePageFragmentDirections.actionNavHomeToNavListening(difficultySelected)
 
-        1 -> fragment = example2Fragment()
+            1 -> homePageFragmentDirections.actionNavHomeToNavVocabulary(difficultySelected)
 
-        2 -> fragment = example3Fragment()
+            2 -> homePageFragmentDirections.actionNavHomeToNavWriting(difficultySelected)
 
-        3 -> fragment = example4Fragment()
+            3 -> homePageFragmentDirections.actionNavHomeToNavSpeaking(difficultySelected)
 
-        else -> fragment = example5Fragment()
+            else -> homePageFragmentDirections.actionNavHomeToNavReading(difficultySelected)
+        }
+        view?.findNavController()?.navigate(action)
     }
-
-    //Opens new fragment
-    val transaction = fragmentManager?.beginTransaction()
-    transaction?.replace(R.id.nav_host_fragment, fragment)
-    transaction?.addToBackStack(null)
-    transaction?.commit()
+    else{
+        Toast.makeText(activity, "Select a difficulty level", Toast.LENGTH_LONG).show()
+    }
 }
 
-override fun onItemClicked(position:Int){
-    //TODO: When a difficulty is chosen, load the right exercises
+override fun onItemClicked(diff: String){
+    //TODO: When a difficulty is chosen, load the right exercises or create list with right exercises from json file
+    difficultySelected = diff
 }
 
 }
