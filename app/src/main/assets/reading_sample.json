@@ -57,6 +57,162 @@
         }
       ],
       "text2": "&nbsp;"
+    },
+    {
+      "text1": "2,100 alleged uploaders using peer-to-peer (P2P) networks in 16 nations ",
+      "choices": [
+        {
+          "text": "such",
+          "correct": false,
+          "feedback": "Incorrect"
+        },
+        {
+          "text": "with",
+          "correct": false,
+          "feedback": "Incorrect"
+        },
+        {
+          "text": "including",
+          "correct": true,
+          "feedback": "Correct"
+        },
+        {
+          "text": "throughout",
+          "correct": false,
+          "feedback": "Incorrect"
+        }
+      ],
+      "text2": "&nbsp;"
+    },
+    {
+      "text1": "the UK, France, Germany and Italy. Thousands of people have agreed to pay compensation since the campaign began. In the US, civil lawsuits have been brought against more than 15,597 people ",
+      "choices": [
+        {
+          "text": "during",
+          "correct": false,
+          "feedback": "Incorrect"
+        },
+        {
+          "text": "throughout",
+          "correct": false,
+          "feedback": "Incorrect"
+        },
+        {
+          "text": "since",
+          "correct": true,
+          "feedback": "Correct"
+        },
+        {
+          "text": "in",
+          "correct": false,
+          "feedback": "Incorrect"
+        }
+      ],
+      "text2": "&nbsp;"
+    },
+    {
+      "text1": "September 2003 and there have been 3,590 settlements. This is a significant escalation of our enforcement actions against people who are uploading and distributing ",
+      "choices": [
+        {
+          "text": "copyrighted",
+          "correct": true,
+          "feedback": "Correct"
+        },
+        {
+          "text": "registered",
+          "correct": false,
+          "feedback": "Incorrect"
+        },
+        {
+          "text": "trademark",
+          "correct": false,
+          "feedback": "Incorrect"
+        },
+        {
+          "text": "illegal",
+          "correct": false,
+          "feedback": "Incorrect"
+        }
+      ],
+      "text2": "&nbsp;"
+    },
+    {
+      "text1": "music on p2p networks, said IFPI chief John Kennedy. Thousands of people - mostly internet-savvy men in their 20s or 30s - have learnt to their ",
+      "choices": [
+        {
+          "text": "benefit",
+          "correct": false,
+          "feedback": "Incorrect"
+        },
+        {
+          "text": "charge",
+          "correct": false,
+          "feedback": "Incorrect"
+        },
+        {
+          "text": "cost",
+          "correct": true,
+          "feedback": "Correct"
+        },
+        {
+          "text": "fortune",
+          "correct": false,
+          "feedback": "Incorrect"
+        }
+      ],
+      "text2": "&nbsp;"
+    },
+    {
+      "text1": "the legal and financial risks involved in file-sharing copyrighted music in large quantities. Individual cases are generally brought by the national associations ",
+      "choices": [
+        {
+          "text": "for",
+          "correct": false,
+          "feedback": "Incorrect"
+        },
+        {
+          "text": "working",
+          "correct": false,
+          "feedback": "Incorrect"
+        },
+        {
+          "text": "representing",
+          "correct": true,
+          "feedback": "Correct"
+        },
+        {
+          "text": "inside",
+          "correct": false,
+          "feedback": "Incorrect"
+        }
+      ],
+      "text2": "&nbsp;"
+    },
+    {
+      "text1": "the recording industry, and in some cases by the labels, as civil complaints. The UK record industry has so far brought 97 cases, with a ",
+      "choices": [
+        {
+          "text": "newly",
+          "correct": false,
+          "feedback": "Incorrect"
+        },
+        {
+          "text": "addition",
+          "correct": false,
+          "feedback": "Incorrect"
+        },
+        {
+          "text": "further",
+          "correct": true,
+          "feedback": "Correct"
+        },
+        {
+          "text": "another",
+          "correct": false,
+          "feedback": "Incorrect"
+        }
+      ],
+      "text2": "..."
     }
   ]
 }
