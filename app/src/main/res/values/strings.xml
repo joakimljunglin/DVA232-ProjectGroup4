@@ -18,4 +18,6 @@
     <string name="quiz_button_continue">continue</string>
     <string name="quiz_button_previous">previous</string>
     <string name="enter_answer">Enter answer</string>
+
+    <string name="complete_sentence">Complete sentence</string>
 </resources>
