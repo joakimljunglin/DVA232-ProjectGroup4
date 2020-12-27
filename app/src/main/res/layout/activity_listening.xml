@@ -31,7 +31,6 @@
                     android:focusable="true"
                     android:clickable="true"
                     android:focusableInTouchMode="true"/>
-
             </LinearLayout>
         </ScrollView>
 
@@ -51,23 +50,55 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="5"
-                android:progress="0"/>
+                android:progress="0" />
 
-            <TextView
-                android:id="@+id/textViewQuestion_listening"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/editTextListeningAnswer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/enter_answer"
-                android:inputType="textPersonName"
-                android:text="" />
+                    <TextView
+                        android:id="@+id/textViewQuestion_listening"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/editTextListeningAnswer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="@string/enter_answer"
+                        android:inputType="textPersonName"
+                        android:text="" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewAudioTimeRemaining"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:id="@+id/audio_button"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/play_audio" />
+
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -83,23 +114,11 @@
 
                 <Button
                     android:id="@+id/continue_button_listening"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/quiz_button_continue" />
-
-                <Button
-                    android:id="@+id/audio_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/play_audio"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                    android:text="@string/quiz_button_continue" />
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/textViewAudioTimeRemaining"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

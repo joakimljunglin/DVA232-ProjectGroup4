@@ -193,9 +193,6 @@ class ListeningActivity : AppCompatActivity() {
 
         }.start()
 
-        Log.d("DEBUG", mediaPlayer?.duration.toString())
-        Log.d("DEBUG", mediaPlayer?.currentPosition.toString())
-
         // Update text of button to pause audio
         audioButton.text = this.resources.getString(R.string.pause_audio)
     }
