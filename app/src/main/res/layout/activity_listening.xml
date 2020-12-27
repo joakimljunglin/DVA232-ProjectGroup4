@@ -93,6 +93,11 @@
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/textViewAudioTimeRemaining"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
     </RelativeLayout>

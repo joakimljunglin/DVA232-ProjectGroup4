@@ -4,7 +4,9 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Parcelable
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -13,14 +15,11 @@ import androidx.core.widget.addTextChangedListener
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.learning_activities.classes.Answer
 import com.example.projectdva232v1.ui.learning_activities.classes.ListeningQuiz
-import com.example.projectdva232v1.ui.learning_activities.classes.Question
-import com.example.projectdva232v1.ui.learning_activities.classes.ReadingQuiz
 import com.example.projectdva232v1.ui.learning_activities.utilities.controlAnswers
 import com.example.projectdva232v1.ui.learning_activities.utilities.getJsonDataFromAsset
 import com.example.projectdva232v1.ui.learning_activities.utilities.getProgress
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.google.android.material.chip.Chip
 import java.io.File
 
 
@@ -28,13 +27,15 @@ class ListeningActivity : AppCompatActivity() {
     lateinit var continueButton: Button
     lateinit var previousButton: Button
     lateinit var audioButton: Button
-    lateinit var mediaPlayer: MediaPlayer
+    lateinit var audioTimeTextView: TextView
     lateinit var progressBar: ProgressBar
     lateinit var questionTextView: TextView
     lateinit var contentTextView: TextView
     lateinit var answerField: EditText
     lateinit var quiz: ListeningQuiz
     lateinit var answers: MutableList<Answer> // List of the user's selected answers
+    private var mediaPlayer: MediaPlayer? = null
+    private var audioTimer: CountDownTimer? = null
     var currentQuestion = 0
     var audioFinishedPlaying = false // Since the audio should not be replayable
 
@@ -93,6 +94,7 @@ class ListeningActivity : AppCompatActivity() {
         continueButton = findViewById(R.id.continue_button_listening)
         previousButton = findViewById(R.id.previous_button_listening)
         audioButton = findViewById(R.id.audio_button)
+        audioTimeTextView = findViewById(R.id.textViewAudioTimeRemaining)
         progressBar = findViewById(R.id.progressBar_listening)
         questionTextView = findViewById(R.id.textViewQuestion_listening)
         contentTextView = findViewById(R.id.textViewReading_listening)
@@ -131,8 +133,8 @@ class ListeningActivity : AppCompatActivity() {
 
         if (audioFinishedPlaying) return // Do not allow playing the audio once it has finished
 
-        // Create MediaPlayer if not already initialized
-        if (!this::mediaPlayer.isInitialized) {
+        // Create MediaPlayer if not already created
+        if (mediaPlayer == null) {
             // Right now the JSON sample only provides a string containing the name of the audio file
             // Change later depending on where the audio files are actually stored
 
@@ -143,15 +145,17 @@ class ListeningActivity : AppCompatActivity() {
 
             mediaPlayer = MediaPlayer.create(this, audioUri)
 
-            mediaPlayer.setOnCompletionListener {
+            mediaPlayer?.setOnCompletionListener {
                 // For when the audio has finished playing
                 // It should not be replayable after this point
                 stopPlayer()
                 audioFinishedPlaying = true
+                audioButton.visibility = View.GONE
+                audioTimeTextView.visibility = View.GONE
             }
         }
 
-        if (mediaPlayer.isPlaying) {
+        if (mediaPlayer?.isPlaying == true) {
             pausePlayer()
         } else {
             startPlayer()
@@ -163,7 +167,25 @@ class ListeningActivity : AppCompatActivity() {
 
     private fun startPlayer() {
         // Starting or resuming the audio
-        mediaPlayer.start()
+
+        mediaPlayer?.start()
+
+        // Create a countdown timer to display the time left of the audio
+        val timeLeft = mediaPlayer?.duration?.minus(mediaPlayer?.currentPosition!!)?.toLong()
+        audioTimer = object: CountDownTimer(timeLeft!!, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                audioTimeTextView.text = timeFormat(millisUntilFinished)
+            }
+
+            override fun onFinish() {
+                audioTimeTextView.text = timeFormat(0)
+                audioFinishedPlaying = true
+            }
+
+        }.start()
+
+        Log.d("DEBUG", mediaPlayer?.duration.toString())
+        Log.d("DEBUG", mediaPlayer?.currentPosition.toString())
 
         // Update text of button to pause audio
         audioButton.text = this.resources.getString(R.string.pause_audio)
@@ -171,7 +193,10 @@ class ListeningActivity : AppCompatActivity() {
 
     private fun pausePlayer() {
         // Pausing the audio
-        mediaPlayer.pause()
+        mediaPlayer?.pause()
+
+        // Since countdown timer cannot be paused and resumed it has to be cancelled and re-created
+        audioTimer?.cancel()
 
         // Update text of button to play audio
         audioButton.text = this.resources.getString(R.string.play_audio)
@@ -180,17 +205,36 @@ class ListeningActivity : AppCompatActivity() {
     private fun stopPlayer() {
         // For releasing the MediaPlayer object
 
-        if (this::mediaPlayer.isInitialized) {
-            mediaPlayer.release()
-        }
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 
     // When leaving the app
     override fun onStop() {
         super.onStop()
-        if (this::mediaPlayer.isInitialized) {
-            mediaPlayer.pause()
+        pausePlayer()
+    }
+
+    // When the activity gets destroyed
+    override fun onDestroy() {
+        super.onDestroy()
+        stopPlayer()
+    }
+
+    // For formatting the text used to display time left of audio
+    private fun timeFormat(milliseconds: Long): String {
+        // Input milliseconds
+        // Convert to 3:40 format (M:SS)
+        // Return as string
+
+        val minutes = milliseconds / 1000 / 60
+        val seconds = milliseconds / 1000 % 60
+
+        // Add a 0 before the number if less than 10 seconds
+        if (seconds < 10) {
+            return "-$minutes:0$seconds"
         }
+        return "-$minutes:$seconds"
     }
 
     private fun questionContinue() {
