@@ -1,5 +1,6 @@
 package com.example.projectdva232v1.ui.learning_activities
 
+import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
@@ -8,6 +9,7 @@ import android.os.CountDownTimer
 import android.os.Parcelable
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
@@ -125,6 +127,13 @@ class ListeningActivity : AppCompatActivity() {
         answerField.addTextChangedListener {
             // Enable continue when there is some sort of input text
             continueButton.isEnabled = answerField.text.isNotEmpty()
+        }
+
+        answerField.setOnFocusChangeListener { _: View, _: Boolean ->
+            if (!answerField.hasFocus()) {
+                // Hide keyboard when not focused
+                answerField.hideKeyboard()
+            }
         }
     }
 
@@ -356,5 +365,11 @@ class ListeningActivity : AppCompatActivity() {
                 continueButton.text = getString(R.string.quiz_button_continue)
             }
         }
+    }
+
+    // Hide the soft keyboard
+    private fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
     }
 }

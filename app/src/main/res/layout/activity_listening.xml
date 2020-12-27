@@ -27,7 +27,10 @@
                     android:id="@+id/textViewReading_listening"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"/>
 
             </LinearLayout>
         </ScrollView>
