@@ -21,7 +21,7 @@
             android:parentActivityName=".ui.learning_activities.TestSelector"/>
         <activity android:name=".ui.learning_activities.ListeningActivity"
             android:parentActivityName=".ui.learning_activities.TestSelector"
-            android:configChanges="screenSize|orientation|keyboardHidden"
+            android:configChanges="keyboardHidden"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".MainActivity"

@@ -160,7 +160,6 @@ class ListeningActivity : AppCompatActivity() {
                 stopPlayer()
                 audioFinishedPlaying = true
                 audioButton.visibility = View.GONE
-                audioTimeTextView.visibility = View.GONE
             }
         }
 
