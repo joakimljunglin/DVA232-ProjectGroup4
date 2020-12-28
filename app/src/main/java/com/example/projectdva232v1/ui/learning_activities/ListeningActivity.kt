@@ -39,6 +39,7 @@ class ListeningActivity : AppCompatActivity() {
     private var mediaPlayer: MediaPlayer? = null
     private var audioTimer: CountDownTimer? = null
     var currentQuestion = 0
+    var audioCurrentPosition = 0 // For tracking where the audio is when having to restore the activity
     var audioFinishedPlaying = false // Since the audio should not be replayable
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +56,8 @@ class ListeningActivity : AppCompatActivity() {
                 answers =
                     savedInstanceState.getParcelableArrayList<Answer>("ANSWERS")?.toMutableList()!!
                 quiz = savedInstanceState.getParcelable<ListeningQuiz>("QUIZ")!!
+                audioFinishedPlaying = savedInstanceState.getBoolean("FINISHED_PLAYING")
+                audioCurrentPosition = savedInstanceState.getInt("AUDIO_POSITION")
             }
             initView()
         } catch (e: UninitializedPropertyAccessException) {
@@ -73,6 +76,13 @@ class ListeningActivity : AppCompatActivity() {
         outState.putInt("CURRENT_QUESTION", currentQuestion)
         outState.putParcelableArrayList("ANSWERS", ArrayList<Parcelable>(answers))
         outState.putParcelable("QUIZ", quiz)
+
+        if (mediaPlayer != null && !audioFinishedPlaying) {
+            outState.putInt("AUDIO_POSITION", mediaPlayer!!.currentPosition)
+        } else {
+            outState.putInt("AUDIO_POSITION", 0)
+        }
+        outState.putBoolean("FINISHED_PLAYING", audioFinishedPlaying)
     }
 
     private fun getData() {
@@ -101,6 +111,13 @@ class ListeningActivity : AppCompatActivity() {
         questionTextView = findViewById(R.id.textViewQuestion_listening)
         contentTextView = findViewById(R.id.textViewReading_listening)
         answerField = findViewById(R.id.editTextListeningAnswer)
+
+        // Set time to remaining time when restoring the activity
+        if (audioCurrentPosition != 0 && !audioFinishedPlaying) {
+            restorePlayer()
+        } else if (audioFinishedPlaying) {
+            audioTimeTextView.text = timeFormat(0)
+        }
 
         // Set progressbar max to number of total questions
         progressBar.max = answers.size
@@ -161,6 +178,9 @@ class ListeningActivity : AppCompatActivity() {
                 audioFinishedPlaying = true
                 audioButton.visibility = View.GONE
             }
+
+            // Forward to specified position (for when the activity is restored)
+            mediaPlayer?.seekTo(audioCurrentPosition)
         }
 
         if (mediaPlayer?.isPlaying == true) {
@@ -171,6 +191,36 @@ class ListeningActivity : AppCompatActivity() {
 
         // Also change text string from play to pause etc
         // OR have 2 different buttons and hide/show them if easier
+    }
+
+    private fun restorePlayer() {
+        if (audioFinishedPlaying) return // Do not allow playing the audio once it has finished
+
+        // Create MediaPlayer if not already created
+        if (mediaPlayer == null) {
+            // Right now the JSON sample only provides a string containing the name of the audio file
+            // Change later depending on where the audio files are actually stored
+
+            // Get the filename without the ".mp3" extension
+            val fileName = File(quiz.audio).nameWithoutExtension
+            val audioUri =
+                Uri.parse("android.resource://" + this.packageName + "/raw/" + fileName)
+
+            mediaPlayer = MediaPlayer.create(this, audioUri)
+
+            mediaPlayer?.setOnCompletionListener {
+                // For when the audio has finished playing
+                // It should not be replayable after this point
+                stopPlayer()
+                audioFinishedPlaying = true
+                audioButton.visibility = View.GONE
+            }
+
+            // Forward to specified position (for when the activity is restored)
+            mediaPlayer?.seekTo(audioCurrentPosition)
+            val timeLeft = mediaPlayer?.duration?.minus(audioCurrentPosition)?.toLong()
+            audioTimeTextView.text = timeLeft?.let { timeFormat(it) }
+        }
     }
 
     private fun startPlayer() {
