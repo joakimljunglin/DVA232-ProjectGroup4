@@ -17,4 +17,9 @@
     <string name="quiz_button_complete">complete</string>
     <string name="quiz_button_continue">continue</string>
     <string name="quiz_button_previous">previous</string>
+    <string name="enter_answer">Enter answer</string>
+
+    <string name="complete_sentence">Complete sentence</string>
+    <string name="play_audio">Play audio</string>
+    <string name="pause_audio">Pause audio</string>
 </resources>

@@ -16,7 +16,9 @@ import com.example.projectdva232v1.ui.learning_activities.classes.Answer
 import com.example.projectdva232v1.ui.learning_activities.classes.Choice
 import com.example.projectdva232v1.ui.learning_activities.classes.Question
 import com.example.projectdva232v1.ui.learning_activities.classes.ReadingQuiz
+import com.example.projectdva232v1.ui.learning_activities.utilities.controlAnswers
 import com.example.projectdva232v1.ui.learning_activities.utilities.getJsonDataFromAsset
+import com.example.projectdva232v1.ui.learning_activities.utilities.getProgress
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.google.android.material.chip.Chip
@@ -145,7 +147,7 @@ class ReadingActivity : AppCompatActivity() {
         }
 
         // Update progress
-        progressBar.progress = getProgress()
+        progressBar.progress = getProgress(answers)
 
         // Check whether quiz has been completed
         if (currentQuestion + 1 == questions.size) {
@@ -188,27 +190,7 @@ class ReadingActivity : AppCompatActivity() {
         loadText()
 
         // Update progress
-        progressBar.progress = getProgress()
-    }
-
-    private fun getProgress(): Int {
-        // Returns number of answered questions
-
-        var progress = 0
-
-        for (answer in answers) {
-            if (answer.answered) progress++
-        }
-
-        return progress
-    }
-
-    private fun controlAnswers(answers: MutableList<Answer>): Int {
-        // Count and return the number of correct answers
-
-        var correct = 0
-        for (item in answers) if (item.correct) correct++
-        return correct
+        progressBar.progress = getProgress(answers)
     }
 
     private fun loadText() {
