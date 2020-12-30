@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
+        android:layout_weight="0.6"
         android:gravity="center">
 
         <View
@@ -49,8 +49,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/result_youscored"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textColor="@color/black"
-                android:textSize="34sp" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/result_TestScore"
@@ -59,7 +58,7 @@
                 android:text="@string/resultpercentage_example"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display4"
                 android:textColor="@color/purple_500"
-                android:textSize="80sp" />
+                android:textSize="50sp" />
 
         </LinearLayout>
 
@@ -76,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="12dp"
                 android:text="@string/result_activityname"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="@color/black" />
         </LinearLayout>
 
@@ -91,14 +90,11 @@
 
         <Button
             android:id="@+id/result_CloseButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="6dp"
             android:fitsSystemWindows="false"
-            android:paddingLeft="60dp"
-            android:paddingRight="60dp"
-            android:text="@string/close_button"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:text="@string/close_button" />
     </LinearLayout>
 
 </LinearLayout>
