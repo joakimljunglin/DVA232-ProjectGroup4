@@ -11,6 +11,15 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
 
+    <string name="quiz_button_complete">complete</string>
+    <string name="quiz_button_continue">continue</string>
+    <string name="quiz_button_previous">previous</string>
+    <string name="enter_answer">Enter answer</string>
+
+    <string name="complete_sentence">Complete sentence</string>
+    <string name="play_audio">Play audio</string>
+    <string name="pause_audio">Pause audio</string>
+
     <string name="vocabulary">Vocabulary</string>
     <string name="listening">Listening</string>
     <string name="writing">Writing</string>

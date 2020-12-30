@@ -1,5 +1,6 @@
 package com.example.projectdva232v1.ui.ReadingActivity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.example5.example5Fragment
 import com.example.projectdva232v1.ui.homePage.DifficultyLevelItem
+import com.example.projectdva232v1.ui.learning_activities.ReadingActivity
 
 
 class ReadingFragment : Fragment(), RecyclerAdapterReading.OnItemClickListener {
@@ -74,11 +76,14 @@ class ReadingFragment : Fragment(), RecyclerAdapterReading.OnItemClickListener {
             }
         }
 
-        view?.findNavController()?.navigate(R.id.action_nav_reading_to_nav_example5)
+        // view?.findNavController()?.navigate(R.id.action_nav_reading_to_nav_example5)
         //Opens new fragment
         /*val transaction = fragmentManager?.beginTransaction()
         transaction?.replace(R.id.nav_host_fragment, fragment)
         transaction?.addToBackStack(null)
         transaction?.commit()*/
+
+        val intent = Intent(this.activity, ReadingActivity::class.java)
+        startActivity(intent)
     }
 }

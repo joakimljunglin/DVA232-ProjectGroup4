@@ -1,5 +1,6 @@
 package com.example.projectdva232v1.ui.VocabularyActivity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.homePage.DifficultyLevelItem
+import com.example.projectdva232v1.ui.learning_activities.VocabularyActivity
 
 
 class VocabularyFragment : Fragment(), RecyclerAdapterVocabulary.OnItemClickListener {
@@ -51,7 +53,10 @@ class VocabularyFragment : Fragment(), RecyclerAdapterVocabulary.OnItemClickList
 
         for (index in 0..activityList.size) {
             if (position == index) {
-                view?.findNavController()?.navigate(R.id.action_nav_vocabulary_to_nav_example5)
+                // view?.findNavController()?.navigate(R.id.action_nav_vocabulary_to_nav_example5)
+
+                val intent = Intent(this.context, VocabularyActivity::class.java)
+                startActivity(intent)
             }
         }
     }

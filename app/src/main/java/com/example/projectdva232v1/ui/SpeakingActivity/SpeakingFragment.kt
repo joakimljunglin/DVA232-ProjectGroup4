@@ -1,5 +1,6 @@
 package com.example.projectdva232v1.ui.SpeakingActivity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.homePage.DifficultyLevelItem
+import com.example.projectdva232v1.ui.learning_activities.SpeakingActivity
 
 
 class SpeakingFragment : Fragment(), RecyclerAdapterSpeaking.OnItemClickListener {
@@ -50,7 +52,10 @@ class SpeakingFragment : Fragment(), RecyclerAdapterSpeaking.OnItemClickListener
     override fun onItemClick(position: Int) {
         for (index in 0..activityList.size) {
             if (position == index) {
-                view?.findNavController()?.navigate(R.id.action_nav_speaking_to_nav_example5)
+                // view?.findNavController()?.navigate(R.id.action_nav_speaking_to_nav_example5)
+
+                val intent = Intent(this.context, SpeakingActivity::class.java)
+                startActivity(intent)
             }
         }
     }
