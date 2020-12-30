@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+        <TextView
+            android:id="@+id/difficulty_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All"
+            android:paddingRight="24dp"
+            android:paddingLeft="24dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:background="@color/blue_diff"/>
+
+
+</RelativeLayout>

@@ -3,38 +3,100 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_example1">
+    app:startDestination="@+id/nav_home">
+
 
     <fragment
-        android:id="@+id/nav_example1"
-        android:name="com.example.projectdva232v1.ui.example1.example1Fragment"
-        android:label="example1"
-        tools:layout="@layout/fragment_example1" />
+        android:id="@+id/nav_home"
+        android:name="com.example.projectdva232v1.ui.homePage.homePageFragment"
+        android:label="Home Page"
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_reading"
+            app:destination="@id/nav_reading" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_listening"
+            app:destination="@id/nav_listening" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_vocabulary"
+            app:destination="@id/nav_vocabulary" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_writing"
+            app:destination="@id/nav_writing" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_speaking"
+            app:destination="@id/nav_speaking" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_listening"
+        android:name="com.example.projectdva232v1.ui.ListeningActivity.ListeningFragment"
+        android:label="@string/listening"
+        tools:layout="@layout/fragment_reading_activity">
+        <action
+            android:id="@+id/action_nav_listening_to_nav_example5"
+            app:destination="@id/nav_example5" />
+        <argument
+            android:name="ListeningFragmentArgs"
+            app:argType="string"
+            android:defaultValue="All" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_vocabulary"
+        android:name="com.example.projectdva232v1.ui.VocabularyActivity.VocabularyFragment"
+        android:label="@string/vocabulary"
+        tools:layout="@layout/fragment_reading_activity">
+        <action
+            android:id="@+id/action_nav_vocabulary_to_nav_example5"
+            app:destination="@id/nav_example5" />
+        <argument
+            android:name="VocabularyFragmentArgs"
+            app:argType="string"
+            android:defaultValue="All" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_writing"
+        android:name="com.example.projectdva232v1.ui.WritingActivity.WritingFragment"
+        android:label="@string/writing"
+        tools:layout="@layout/fragment_reading_activity">
+        <action
+            android:id="@+id/action_nav_writing_to_nav_example5"
+            app:destination="@id/nav_example5" />
+        <argument
+            android:name="WritingFragmentArgs"
+            app:argType="string"
+            android:defaultValue="All" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_speaking"
+        android:name="com.example.projectdva232v1.ui.SpeakingActivity.SpeakingFragment"
+        android:label="@string/speaking"
+        tools:layout="@layout/fragment_reading_activity">
+        <action
+            android:id="@+id/action_nav_speaking_to_nav_example5"
+            app:destination="@id/nav_example5" />
+        <argument
+            android:name="SpeakingFragmentArgs"
+            app:argType="string"
+            android:defaultValue="All" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_reading"
+        android:name="com.example.projectdva232v1.ui.ReadingActivity.ReadingFragment"
+        android:label="@string/reading"
+        tools:layout="@layout/fragment_reading_activity">
+        <action
+            android:id="@+id/action_nav_reading_to_nav_example5"
+            app:destination="@id/nav_example5" />
+        <argument
+            android:name="ReadingFragmentArgs"
+            app:argType="string"
+            android:defaultValue="All" />
+    </fragment>
 
-    <fragment
-        android:id="@+id/nav_example2"
-        android:name="com.example.projectdva232v1.ui.example2.example2Fragment"
-        android:label="example2"
-        tools:layout="@layout/fragment_example2" />
-
-    <fragment
-        android:id="@+id/nav_example3"
-        android:name="com.example.projectdva232v1.ui.example3.example3Fragment"
-        android:label="example3"
-        tools:layout="@layout/fragment_example3" />
-    <fragment
-        android:id="@+id/nav_example4"
-        android:name="com.example.projectdva232v1.ui.example4.example4Fragment"
-        android:label="example4"
-        tools:layout="@layout/fragment_example4" />
     <fragment
         android:id="@+id/nav_example5"
         android:name="com.example.projectdva232v1.ui.example5.example5Fragment"
-        android:label="example5"
+        android:label="@string/reading"
         tools:layout="@layout/fragment_example5" />
-    <fragment
-        android:id="@+id/nav_example6"
-        android:name="com.example.projectdva232v1.ui.example6.example6Fragment"
-        android:label="example6"
-        tools:layout="@layout/fragment_example6" />
+
 </navigation>
