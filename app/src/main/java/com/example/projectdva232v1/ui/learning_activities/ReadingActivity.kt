@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
+import com.example.projectdva232v1.MainActivity
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.learning_activities.classes.Answer
 import com.example.projectdva232v1.ui.learning_activities.classes.Choice
@@ -57,7 +58,7 @@ class ReadingActivity : AppCompatActivity() {
             Toast.makeText(this, "Failed to load the reading test", Toast.LENGTH_LONG).show()
 
             // TODO: Set to select activity page once implemented
-            val intent = Intent(this, TestSelector::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }
@@ -153,7 +154,7 @@ class ReadingActivity : AppCompatActivity() {
         if (currentQuestion + 1 == questions.size) {
             // Send to result page
             // TODO: Change to results page
-            val intent = Intent(this, TestSelector::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             val correctAnswers = controlAnswers(answers)
             intent.putExtra("correctAnswers", correctAnswers)
             intent.putExtra("totalAnswers", questions.size)

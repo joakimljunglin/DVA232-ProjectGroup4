@@ -14,6 +14,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.core.widget.addTextChangedListener
+import com.example.projectdva232v1.MainActivity
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.learning_activities.classes.Answer
 import com.example.projectdva232v1.ui.learning_activities.classes.ListeningQuiz
@@ -65,7 +66,7 @@ class ListeningActivity : AppCompatActivity() {
             Toast.makeText(this, "Failed to load the listening test", Toast.LENGTH_LONG).show()
 
             // TODO: Set to select activity page once implemented
-            val intent = Intent(this, TestSelector::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }
@@ -305,7 +306,7 @@ class ListeningActivity : AppCompatActivity() {
         if (currentQuestion + 1 == answers.size) {
             // Send to result page
             // TODO: Change to results page
-            val intent = Intent(this, TestSelector::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             val correctAnswers = controlAnswers(answers)
             intent.putExtra("correctAnswers", correctAnswers)
             intent.putExtra("totalAnswers", answers.size)

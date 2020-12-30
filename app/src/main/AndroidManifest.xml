@@ -9,18 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectDva232V1">
-        <activity android:name=".ui.learning_activities.TestSelector"
-            android:parentActivityName=".MainActivity"/>
         <activity android:name=".ui.learning_activities.ReadingActivity"
-            android:parentActivityName=".ui.learning_activities.TestSelector"/>
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".ui.learning_activities.SpeakingActivity"
-            android:parentActivityName=".ui.learning_activities.TestSelector"/>
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".ui.learning_activities.VocabularyActivity"
-            android:parentActivityName=".ui.learning_activities.TestSelector"/>
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".ui.learning_activities.WritingActivity"
-            android:parentActivityName=".ui.learning_activities.TestSelector"/>
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".ui.learning_activities.ListeningActivity"
-            android:parentActivityName=".ui.learning_activities.TestSelector"
+            android:parentActivityName=".MainActivity"
             android:configChanges="keyboardHidden"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
