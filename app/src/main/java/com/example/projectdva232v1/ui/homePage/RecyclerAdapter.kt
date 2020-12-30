@@ -33,7 +33,7 @@ class RecyclerAdapter(
         holder.textDifficulty.text = currentItem.difficultyName
     }
 
-    // Class with the data that is displayed for each CurrencyItem
+    // Class with the data that is displayed for each Difficulty Item
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
             View.OnClickListener {
         val textDifficulty: TextView = itemView.findViewById(R.id.difficulty_tv)
@@ -49,11 +49,12 @@ class RecyclerAdapter(
             val position = adapterPosition
             if(position!=RecyclerView.NO_POSITION){
                 textDifficulty.setBackgroundResource(R.color.pink)
-                listener.onItemClicked(position)
+                listener.onItemClicked(textDifficulty.text.toString())
             }
 
             lastText = textDifficulty
             c+=1
         }
     }
+
 }
