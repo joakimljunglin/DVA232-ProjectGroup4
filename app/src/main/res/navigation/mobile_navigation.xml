@@ -3,13 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_example1">
+    app:startDestination="@+id/nav_home">
 
     <fragment
         android:id="@+id/nav_example1"
         android:name="com.example.projectdva232v1.ui.example1.example1Fragment"
         android:label="example1"
         tools:layout="@layout/fragment_example1" />
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.projectdva232v1.ui.homePage.homePageFragment"
+        android:label="Home Page"
+        tools:layout="@layout/fragment_home_page" />
 
     <fragment
         android:id="@+id/nav_example2"

@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue_diff">#4A6BD2</color>
+    <color name="blue_act">#95a8ed</color>
+    <color name="grey">#ededed</color>
+    <color name="pink">#ef506b</color>
+    <color name="listening">#95a8ed</color>
+    <color name="vocabulary">#edda95</color>
+    <color name="writing">#95d4ed</color>
+    <color name="speaking">#ae95ed</color>
+    <color name="reading">#ed95a8</color>
+
 </resources>

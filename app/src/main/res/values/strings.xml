@@ -10,4 +10,37 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <string name="vocabulary">Vocabulary</string>
+    <string name="listening">Listening</string>
+    <string name="writing">Writing</string>
+    <string name="speaking">Speaking</string>
+    <string name="reading">Reading</string>
+    <string name="all">All</string>
+    <string name="beginner">Beginner</string>
+    <string name="intermediate">Intermediate</string>
+    <string name="advanced">Advanced</string>
+
+    <string-array name="difficulty_array">
+        <item>All</item>
+        <item>Beginner</item>
+        <item>Intermediate</item>
+        <item>Advanced</item>
+    </string-array>
+
+    <string-array name="activity_array">
+        <item>Vocabulary</item>
+        <item>Listening</item>
+        <item>Writing</item>
+        <item>Speaking</item>
+        <item>Reading</item>
+    </string-array>
+
+    <integer-array name="activities_images">
+        <item>@drawable/vocabulary</item>
+        <item>@drawable/listening</item>
+        <item>@drawable/writing</item>
+        <item>@drawable/speaking</item>
+        <item>@drawable/reading</item>
+    </integer-array>
 </resources>
