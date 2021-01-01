@@ -34,7 +34,7 @@
         tools:layout="@layout/fragment_example5" />
     <fragment
         android:id="@+id/nav_example6"
-        android:name="com.example.projectdva232v1.ui.example6.example6Fragment"
+        android:name="com.example.projectdva232v1.ui.ResultActivity.ResultFragment"
         android:label="example6"
-        tools:layout="@layout/fragment_example6" />
+        tools:layout="@layout/result_layout" />
 </navigation>
