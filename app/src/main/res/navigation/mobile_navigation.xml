@@ -98,5 +98,9 @@
         android:name="com.example.projectdva232v1.ui.example5.example5Fragment"
         android:label="@string/reading"
         tools:layout="@layout/fragment_example5" />
-
+    <fragment
+        android:id="@+id/nav_result"
+        android:name="com.example.projectdva232v1.ui.ResultActivity.ResultFragment"
+        android:label="@string/result"
+        tools:layout="@layout/result_layout" />
 </navigation>
