@@ -10,6 +10,7 @@
     <string name="result_youscored">You Scored</string>
     <string name="resultpercentage_example">75%</string>
     <string name="result_activityname">Writing - Test 1</string>
+    <string name="result">Test Result</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
