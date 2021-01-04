@@ -1,4 +1,4 @@
-package com.example.projectdva232v1.ui.homePage
+package com.example.projectdva232v1.ui.HomePage
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +11,8 @@ class RecyclerAdapter(
         private val difficultyList: List<DifficultyLevelItem>,
         private val listener: RecyclerAdapterActivity.OnItemClickListener
 ) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+    var count = 0
     lateinit var lastText:TextView
-    var c:Int= 0
     // Called for every ViewHolder item that is to be created
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // Build view from XML file
@@ -31,11 +31,27 @@ class RecyclerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = difficultyList[position]
         holder.textDifficulty.text = currentItem.difficultyName
+
+        holder.diffLayout.setOnClickListener {
+            lastClickedPosition = position
+            notifyDataSetChanged()
+            if (position != RecyclerView.NO_POSITION) {
+                listener.onItemClicked(holder.textDifficulty.text.toString())
+            }
+        }
+        if (lastClickedPosition == position) {
+            if(count > 0){
+                lastText.setBackgroundResource(R.color.blue_diff)
+            }
+            lastText = holder.textDifficulty
+            count+=1
+            holder.textDifficulty.setBackgroundResource(R.color.pink)
+            lastClickedPosition = -1
+        }
     }
 
     // Class with the data that is displayed for each Difficulty Item
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-            View.OnClickListener {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val textDifficulty: TextView = itemView.findViewById(R.id.difficulty_tv)
 
         init {
