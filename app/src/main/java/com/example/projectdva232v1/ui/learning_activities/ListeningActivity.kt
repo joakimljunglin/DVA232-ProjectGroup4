@@ -14,8 +14,11 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
 import com.example.projectdva232v1.MainActivity
 import com.example.projectdva232v1.R
+import com.example.projectdva232v1.ui.HomePage.homePageFragment
 import com.example.projectdva232v1.ui.learning_activities.classes.Answer
 import com.example.projectdva232v1.ui.learning_activities.classes.ListeningQuiz
 import com.example.projectdva232v1.ui.learning_activities.utilities.controlAnswers

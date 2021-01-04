@@ -7,7 +7,7 @@
     android:background="@color/grey"
     android:orientation="vertical"
     android:id="@+id/home"
-    tools:context=".ui.homePage.homePageFragment">
+    tools:context=".ui.HomePage.homePageFragment">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"

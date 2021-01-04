@@ -1,4 +1,4 @@
-package com.example.projectdva232v1.ui.WritingActivity
+package com.example.projectdva232v1.ui.Listening
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,17 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdva232v1.R
-import com.example.projectdva232v1.ui.homePage.DifficultyLevelItem
-import com.example.projectdva232v1.ui.learning_activities.WritingActivity
+import com.example.projectdva232v1.ui.HomePage.DifficultyLevelItem
+import com.example.projectdva232v1.ui.learning_activities.ListeningActivity
 
 
-class WritingFragment : Fragment(), RecyclerAdapterWriting.OnItemClickListener {
+class ListeningFragment : Fragment(), RecyclerAdapterListening.OnItemClickListener {
 
-    private lateinit var writingModel: WritingModel
+    private lateinit var listeningModel: ListeningModel
+    //lateinit var levels: MutableList<DifficultyLevelItem>
     var activityList = ArrayList<DifficultyLevelItem>()
     lateinit var difficultySelected: String
 
@@ -27,13 +27,15 @@ class WritingFragment : Fragment(), RecyclerAdapterWriting.OnItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        difficultySelected = WritingFragmentArgs.fromBundle(requireArguments()).WritingFragmentArgs
-        writingModel =
-            ViewModelProvider(this).get(WritingModel::class.java)
+        difficultySelected = ListeningFragmentArgs.fromBundle(requireArguments()).ListeningFragmentArgs
+
+        listeningModel =
+            ViewModelProvider(this).get(ListeningModel::class.java)
         val root = inflater.inflate(R.layout.fragment_reading_activity, container, false)
 
         //Since we don't have access to the API
         val activities = resources.getStringArray(R.array.difficulty_array)
+        activityList.clear()
         for (diff in activities) {
             if (diff == difficultySelected) {
                 val item = DifficultyLevelItem(diff)
@@ -42,7 +44,7 @@ class WritingFragment : Fragment(), RecyclerAdapterWriting.OnItemClickListener {
         }
         // Setup for the recycler view
         val rv = root.findViewById<RecyclerView>(R.id.recycler_view_activity_reading)
-        rv.adapter = RecyclerAdapterWriting(activityList, this)
+        rv.adapter = RecyclerAdapterListening(activityList, this)
         rv.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         rv.setHasFixedSize(true)
         return root
@@ -51,9 +53,8 @@ class WritingFragment : Fragment(), RecyclerAdapterWriting.OnItemClickListener {
     override fun onItemClick(position: Int) {
         for (index in 0..activityList.size) {
             if (position == index) {
-                // view?.findNavController()?.navigate(R.id.action_nav_writing_to_nav_example5)
 
-                val intent = Intent(this.context, WritingActivity::class.java)
+                val intent = Intent(this.context, ListeningActivity::class.java)
                 startActivity(intent)
             }
         }

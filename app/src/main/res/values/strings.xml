@@ -43,16 +43,16 @@
     </string-array>
 
     <string-array name="activity_array">
-        <item>Vocabulary</item>
         <item>Listening</item>
+        <item>Vocabulary</item>
         <item>Writing</item>
         <item>Speaking</item>
         <item>Reading</item>
     </string-array>
 
     <integer-array name="activities_images">
-        <item>@drawable/vocabulary</item>
         <item>@drawable/listening</item>
+        <item>@drawable/vocabulary</item>
         <item>@drawable/writing</item>
         <item>@drawable/speaking</item>
         <item>@drawable/reading</item>

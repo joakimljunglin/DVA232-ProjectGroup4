@@ -1,10 +1,10 @@
-package com.example.projectdva232v1.ui.VocabularyActivity
+package com.example.projectdva232v1.ui.Reading
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class VocabularyModel : ViewModel() {
+class ReadingModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is reading Fragment"

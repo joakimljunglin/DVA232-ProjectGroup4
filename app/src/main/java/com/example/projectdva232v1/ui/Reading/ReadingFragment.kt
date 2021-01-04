@@ -1,4 +1,4 @@
-package com.example.projectdva232v1.ui.ReadingActivity
+package com.example.projectdva232v1.ui.Reading
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdva232v1.R
-import com.example.projectdva232v1.ui.example5.example5Fragment
-import com.example.projectdva232v1.ui.homePage.DifficultyLevelItem
+import com.example.projectdva232v1.ui.HomePage.DifficultyLevelItem
 import com.example.projectdva232v1.ui.learning_activities.ReadingActivity
 
 
@@ -54,7 +52,6 @@ class ReadingFragment : Fragment(), RecyclerAdapterReading.OnItemClickListener {
         // Setup for the recycler view
         val rv = root.findViewById<RecyclerView>(R.id.recycler_view_activity_reading)
         rv.adapter = RecyclerAdapterReading(activityList, this)
-        //rv.adapter = RecyclerAdapterReading(rightReadingActivities,this)
         rv.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         rv.setHasFixedSize(true)
         return root
@@ -62,28 +59,12 @@ class ReadingFragment : Fragment(), RecyclerAdapterReading.OnItemClickListener {
 
     override fun onItemClick(position: Int) {
 
-        var fragment: Fragment = ReadingFragment()
-        //TODO: replace with the right reading activity fragment
-        /*for (index in 0..rightReadingActivities.size) {
-            if (position == index) {
-                fragment = readingActivity()
-            }
-        }*/
-
         for (index in 0..activityList.size) {
             if (position == index) {
-                fragment = example5Fragment()
+
+                val intent = Intent(this.context, ReadingActivity::class.java)
+                startActivity(intent)
             }
         }
-
-        // view?.findNavController()?.navigate(R.id.action_nav_reading_to_nav_example5)
-        //Opens new fragment
-        /*val transaction = fragmentManager?.beginTransaction()
-        transaction?.replace(R.id.nav_host_fragment, fragment)
-        transaction?.addToBackStack(null)
-        transaction?.commit()*/
-
-        val intent = Intent(this.activity, ReadingActivity::class.java)
-        startActivity(intent)
     }
 }

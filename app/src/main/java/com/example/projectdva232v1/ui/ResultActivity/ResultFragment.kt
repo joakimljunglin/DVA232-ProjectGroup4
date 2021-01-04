@@ -40,9 +40,9 @@ class ResultFragment : Fragment() {
     resultModel = ViewModelProvider(this).get(ResultModel::class.java)
     val root = inflater.inflate(R.layout.result_layout, container, false)
 
-    score = intent.getIntExtra(correctAnswers, Int)
-    maxScore = intent.getIntExtra(totalAnswers, Int)
-    activityName = intent.getStringExtra(activity)
+    //score = intent.getIntExtra(correctAnswers, Int)
+    //maxScore = intent.getIntExtra(totalAnswers, Int)
+    //activityName = intent.getStringExtra(activity)
 
     initView(root)
 
