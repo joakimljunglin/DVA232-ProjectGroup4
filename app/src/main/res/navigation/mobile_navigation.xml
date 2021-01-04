@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.projectdva232v1.ui.homePage.homePageFragment"
+        android:name="com.example.projectdva232v1.ui.HomePage.homePageFragment"
         android:label="Home Page"
         tools:layout="@layout/fragment_home_page" >
         <action
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_listening"
-        android:name="com.example.projectdva232v1.ui.ListeningActivity.ListeningFragment"
+        android:name="com.example.projectdva232v1.ui.Listening.ListeningFragment"
         android:label="@string/listening"
         tools:layout="@layout/fragment_reading_activity">
         <action
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_vocabulary"
-        android:name="com.example.projectdva232v1.ui.VocabularyActivity.VocabularyFragment"
+        android:name="com.example.projectdva232v1.ui.Vocabulary.VocabularyFragment"
         android:label="@string/vocabulary"
         tools:layout="@layout/fragment_reading_activity">
         <action
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_writing"
-        android:name="com.example.projectdva232v1.ui.WritingActivity.WritingFragment"
+        android:name="com.example.projectdva232v1.ui.Writing.WritingFragment"
         android:label="@string/writing"
         tools:layout="@layout/fragment_reading_activity">
         <action
@@ -68,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_speaking"
-        android:name="com.example.projectdva232v1.ui.SpeakingActivity.SpeakingFragment"
+        android:name="com.example.projectdva232v1.ui.Speaking.SpeakingFragment"
         android:label="@string/speaking"
         tools:layout="@layout/fragment_reading_activity">
         <action
@@ -81,7 +81,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_reading"
-        android:name="com.example.projectdva232v1.ui.ReadingActivity.ReadingFragment"
+        android:name="com.example.projectdva232v1.ui.Reading.ReadingFragment"
         android:label="@string/reading"
         tools:layout="@layout/fragment_reading_activity">
         <action
