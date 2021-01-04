@@ -35,6 +35,7 @@ class SpeakingFragment : Fragment(), RecyclerAdapterSpeaking.OnItemClickListener
 
         //Since we don't have access to the API
         val activities = resources.getStringArray(R.array.difficulty_array)
+        activityList.clear()
         for (diff in activities) {
             if (diff == difficultySelected) {
                 val item = DifficultyLevelItem(diff)

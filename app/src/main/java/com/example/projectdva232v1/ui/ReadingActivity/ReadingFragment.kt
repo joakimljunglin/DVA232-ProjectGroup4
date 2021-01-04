@@ -70,20 +70,6 @@ class ReadingFragment : Fragment(), RecyclerAdapterReading.OnItemClickListener {
             }
         }*/
 
-        for (index in 0..activityList.size) {
-            if (position == index) {
-                fragment = example5Fragment()
-            }
-        }
-
-        // view?.findNavController()?.navigate(R.id.action_nav_reading_to_nav_example5)
-        //Opens new fragment
-        /*val transaction = fragmentManager?.beginTransaction()
-        transaction?.replace(R.id.nav_host_fragment, fragment)
-        transaction?.addToBackStack(null)
-        transaction?.commit()*/
-
-        val intent = Intent(this.activity, ReadingActivity::class.java)
-        startActivity(intent)
+        view?.findNavController()?.navigate(R.id.action_nav_reading_to_nav_example5)
     }
 }
