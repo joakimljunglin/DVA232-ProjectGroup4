@@ -18,9 +18,8 @@ import com.example.projectdva232v1.MainActivity
 import com.example.projectdva232v1.R
 import kotlin.math.roundToInt
 
-class ResultFragment : AppCompatActivity() {
+class ResultActivity : AppCompatActivity() {
 
-  private lateinit var resultModel: ResultModel
   lateinit var backgroundColor: View
   lateinit var activityLogo: ImageView
   lateinit var testScore: TextView
@@ -34,7 +33,6 @@ class ResultFragment : AppCompatActivity() {
   @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    resultModel = ViewModelProvider(this).get(ResultModel::class.java)
     setContentView(R.layout.result_layout)
 
     score = intent.getIntExtra("correctAnswers", 0)
