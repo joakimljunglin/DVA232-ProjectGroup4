@@ -1,0 +1,66 @@
+<resources>
+    <!-- Commenting out any strings which seem to not be used / intended for final app -->
+    <string name="app_name">LanGuide</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="action_settings">Inställningar</string>
+    <string name="close_button">Stäng</string>
+    <string name="result_youscored">Du Fick</string>
+
+    <!-- Sample strings that should probably be removed -->
+    <string name="resultpercentage_example">75%</string>
+    <string name="result_activityname">Writing - Test 1</string>
+
+    <string name="result">Testresultat</string>
+
+    <!-- Not sure below will be part of the app -->
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="quiz_button_complete">slutför</string>
+    <string name="quiz_button_continue">fortsätt</string>
+    <string name="quiz_button_previous">föregående</string>
+    <string name="enter_answer">Ange svar</string>
+
+    <string name="complete_sentence">Fyll i meningen</string>
+    <string name="play_audio">Spela ljud</string>
+    <string name="pause_audio">Pausa ljud</string>
+
+    <string name="vocabulary">Vokabulär</string>
+    <string name="listening">Lyssnande</string>
+    <string name="writing">Skrivande</string>
+    <string name="speaking">Talande</string>
+    <string name="reading">Läsning</string>
+    <string name="all">Alla</string>
+    <string name="beginner">Nybörjare</string>
+    <string name="intermediate">Mellan</string>
+    <string name="advanced">Avancerat</string>
+
+    <string-array name="difficulty_array">
+        <item>Alla</item>
+        <item>Nybörjare</item>
+        <item>Mellan</item>
+        <item>Avancerat</item>
+    </string-array>
+
+    <string-array name="activity_array">
+        <item>Vokabulär</item>
+        <item>Lyssnande</item>
+        <item>Skrivande</item>
+        <item>Talande</item>
+        <item>Läsning</item>
+    </string-array>
+
+    <integer-array name="activities_images">
+        <item>@drawable/vocabulary</item>
+        <item>@drawable/listening</item>
+        <item>@drawable/writing</item>
+        <item>@drawable/speaking</item>
+        <item>@drawable/reading</item>
+    </integer-array>
+</resources>
