@@ -19,6 +19,7 @@ import androidx.fragment.app.commit
 import com.example.projectdva232v1.MainActivity
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.HomePage.homePageFragment
+import com.example.projectdva232v1.ui.ResultActivity.ResultActivity
 import com.example.projectdva232v1.ui.learning_activities.classes.Answer
 import com.example.projectdva232v1.ui.learning_activities.classes.ListeningQuiz
 import com.example.projectdva232v1.ui.learning_activities.utilities.controlAnswers
@@ -308,8 +309,7 @@ class ListeningActivity : AppCompatActivity() {
         // Check whether quiz has been completed
         if (currentQuestion + 1 == answers.size) {
             // Send to result page
-            // TODO: Change to results page
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, ResultActivity::class.java)
             val correctAnswers = controlAnswers(answers)
             intent.putExtra("correctAnswers", correctAnswers)
             intent.putExtra("totalAnswers", answers.size)
