@@ -19,7 +19,7 @@ class RegistrationActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        spinner=  findViewById(R.id.roleSpinner)
+        spinner = findViewById(R.id.roleSpinner)
         button = findViewById(R.id.button1)
         editText = findViewById(R.id.first_name)
         editText = findViewById(R.id.email_adress)
@@ -34,4 +34,5 @@ class RegistrationActivity : AppCompatActivity() {
             // missing code for spinnner
 
         }
+    }
 }
