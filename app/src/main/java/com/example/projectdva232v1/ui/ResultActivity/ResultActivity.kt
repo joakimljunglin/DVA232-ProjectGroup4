@@ -11,16 +11,15 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.projectdva232v1.MainActivity
 import com.example.projectdva232v1.R
 import kotlin.math.roundToInt
 
-// TODO: Needs renaming - alternatively copy class content and refactor to different type (AppCompatActivity?)
-class ResultFragment : Fragment() {
+class ResultActivity : AppCompatActivity() {
 
-  private lateinit var resultModel: ResultModel
   lateinit var backgroundColor: View
   lateinit var activityLogo: ImageView
   lateinit var testScore: TextView
@@ -32,36 +31,30 @@ class ResultFragment : Fragment() {
 
 
   @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    resultModel = ViewModelProvider(this).get(ResultModel::class.java)
-    val root = inflater.inflate(R.layout.result_layout, container, false)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.result_layout)
 
-    score = intent.getIntExtra(correctAnswers, Int)
-    maxScore = intent.getIntExtra(totalAnswers, Int)
-    activityName = intent.getStringExtra(activity)
+    score = intent.getIntExtra("correctAnswers", 0)
+    maxScore = intent.getIntExtra("totalAnswers", 0)
+    activityName = intent.getStringExtra("activity").toString()
 
-    initView(root)
-
-    return root
+    initView()
   }
 
   @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-  private fun initView(view: View){
-    backgroundColor = view.findViewById(R.id.resultBackground)
-    activityLogo = view.findViewById(R.id.result_ActivityLogo)
-    testScore = view.findViewById(R.id.result_TestScore)
-    testName = view.findViewById(R.id.result_TestName)
-    closeButton = view.findViewById(R.id.result_CloseButton)
+  private fun initView(){
+    backgroundColor = findViewById(R.id.resultBackground)
+    activityLogo = findViewById(R.id.result_ActivityLogo)
+    testScore = findViewById(R.id.result_TestScore)
+    testName = findViewById(R.id.result_TestName)
+    closeButton = findViewById(R.id.result_CloseButton)
 
 
-    var colorId: Int = resources.getIdentifier(activityName, "colors", context?.packageName)
+    var colorId: Int = resources.getIdentifier(activityName, "colors", packageName)
     backgroundColor.setBackgroundColor(colorId)
 
-    var iconId: Int = resources.getIdentifier(activityName, "drawable", context?.packageName)
+    var iconId: Int = resources.getIdentifier(activityName, "drawable", packageName)
     var da: Drawable = resources.getDrawable(iconId, null)
     activityLogo.setImageDrawable(da)
 
@@ -79,7 +72,7 @@ class ResultFragment : Fragment() {
   }
 
   private fun sendToHome() {
-    val intent = Intent(this.activity, MainActivity::class.java)
+    val intent = Intent(this, MainActivity::class.java)
     startActivity(intent)
   }
 }
