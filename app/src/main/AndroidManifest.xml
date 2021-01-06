@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.projectdva232v1" >
+    package="com.example.projectdva232v1">
 
     <application
         android:allowBackup="true"
@@ -9,23 +9,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectDva232V1">
-        <activity android:name=".ui.learning_activities.ReadingActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".ui.learning_activities.SpeakingActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".ui.learning_activities.VocabularyActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".ui.learning_activities.WritingActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".ui.learning_activities.ListeningActivity"
-            android:parentActivityName=".MainActivity"
+        <activity android:name=".ui.RegActivity.RegistrationActivity"></activity>
+        <activity android:name=".ui.LoginActivity.LoginActivity" />
+        <activity
+            android:name=".ui.learning_activities.ReadingActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ui.learning_activities.SpeakingActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ui.learning_activities.VocabularyActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ui.learning_activities.WritingActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ui.learning_activities.ListeningActivity"
             android:configChanges="keyboardHidden"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".MainActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ProjectDva232V1.NoActionBar"
-            android:configChanges="orientation|screenSize">
+            android:theme="@style/Theme.ProjectDva232V1.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
