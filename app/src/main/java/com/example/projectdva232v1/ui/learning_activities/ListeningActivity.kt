@@ -14,8 +14,11 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
 import com.example.projectdva232v1.MainActivity
 import com.example.projectdva232v1.R
+import com.example.projectdva232v1.ui.HomePage.homePageFragment
 import com.example.projectdva232v1.ui.ResultActivity.ResultActivity
 import com.example.projectdva232v1.ui.learning_activities.classes.Answer
 import com.example.projectdva232v1.ui.learning_activities.classes.ListeningQuiz
@@ -66,6 +69,7 @@ class ListeningActivity : AppCompatActivity() {
             // Data could not be loaded, return to previous page
             Toast.makeText(this, "Failed to load the listening test", Toast.LENGTH_LONG).show()
 
+            // TODO: Set to select activity page once implemented
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

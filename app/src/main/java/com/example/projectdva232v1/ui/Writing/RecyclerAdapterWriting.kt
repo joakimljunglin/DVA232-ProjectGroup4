@@ -1,4 +1,4 @@
-package com.example.projectdva232v1.ui.WritingActivity
+package com.example.projectdva232v1.ui.Writing
 
 import android.graphics.Color
 import android.text.SpannableString
@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdva232v1.R
-import com.example.projectdva232v1.ui.homePage.DifficultyLevelItem
+import com.example.projectdva232v1.ui.HomePage.DifficultyLevelItem
 
 
 class RecyclerAdapterWriting(

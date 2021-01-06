@@ -1,13 +1,14 @@
-package com.example.projectdva232v1.ui.WritingActivity
+package com.example.projectdva232v1.ui.HomePage
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class WritingModel : ViewModel() {
+class HomePageModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is reading Fragment"
+        value = "This is home Page Fragment"
     }
     val text: LiveData<String> = _text
+
 }
