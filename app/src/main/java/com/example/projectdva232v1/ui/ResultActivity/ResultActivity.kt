@@ -1,6 +1,7 @@
 package com.example.projectdva232v1.ui.ResultActivity
 
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
@@ -51,7 +52,7 @@ class ResultActivity : AppCompatActivity() {
     closeButton = findViewById(R.id.result_CloseButton)
 
 
-    var colorId: Int = resources.getIdentifier(activityName, "colors", packageName)
+    var colorId: Int = resources.getIdentifier(activityName, "color", packageName)
     backgroundColor.setBackgroundColor(colorId)
 
     var iconId: Int = resources.getIdentifier(activityName, "drawable", packageName)
