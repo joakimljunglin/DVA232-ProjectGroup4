@@ -30,8 +30,8 @@ class ResultActivity : AppCompatActivity() {
   var maxScore: Int = 0
   lateinit var activityName: String
 
-
-  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+  
+  @RequiresApi(Build.VERSION_CODES.M)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.result_layout)
@@ -43,7 +43,8 @@ class ResultActivity : AppCompatActivity() {
     initView()
   }
 
-  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+  
+  @RequiresApi(Build.VERSION_CODES.M)
   private fun initView(){
     backgroundColor = findViewById(R.id.resultBackground)
     activityLogo = findViewById(R.id.result_ActivityLogo)
@@ -53,7 +54,8 @@ class ResultActivity : AppCompatActivity() {
 
 
     var colorId: Int = resources.getIdentifier(activityName, "color", packageName)
-    backgroundColor.setBackgroundColor(colorId)
+    var co = resources.getColor(colorId, null)
+    backgroundColor.setBackgroundColor(co)
 
     var iconId: Int = resources.getIdentifier(activityName, "drawable", packageName)
     var da: Drawable = resources.getDrawable(iconId, null)
