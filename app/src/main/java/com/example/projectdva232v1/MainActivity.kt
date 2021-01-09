@@ -1,5 +1,6 @@
 package com.example.projectdva232v1
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -11,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.projectdva232v1.ui.HomePage.homePageFragment
+import com.example.projectdva232v1.ui.Settings.SettingsActivity
 import com.google.android.material.navigation.NavigationView
 
 
@@ -31,14 +33,14 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
-                setOf(
-                        R.id.nav_home,
-                        R.id.nav_vocabulary,
-                        R.id.nav_listening,
-                        R.id.nav_writing,
-                        R.id.nav_speaking,
-                        R.id.nav_reading
-                ), drawerLayout
+            setOf(
+                R.id.nav_home,
+                R.id.nav_vocabulary,
+                R.id.nav_listening,
+                R.id.nav_writing,
+                R.id.nav_speaking,
+                R.id.nav_reading
+            ), drawerLayout
         )
 
         NavigationUI.setupWithNavController(navView, navController)
@@ -66,6 +68,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun openSettings(item: MenuItem) {
+        // Starts the settings activity
+        val intent = Intent(this, SettingsActivity::class.java)
+        startActivity(intent)
+    }
 
 
 }
