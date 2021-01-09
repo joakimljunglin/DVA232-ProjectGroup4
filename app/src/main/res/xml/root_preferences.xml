@@ -5,11 +5,10 @@
         <ListPreference
             app:defaultValue="@string/english"
             app:entries="@array/pref_language"
-            app:entryValues="@array/pref_language"
+            app:entryValues="@array/pref_language_values"
             android:key="@string/pref_language_key"
             android:title="@string/change_language"
-            app:useSimpleSummaryProvider="true"/>
-
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
 </PreferenceScreen>
