@@ -18,7 +18,7 @@ import com.example.projectdva232v1.R
 import kotlin.math.roundToInt
 
 // TODO: Needs renaming - alternatively copy class content and refactor to different type (AppCompatActivity?)
-class ResultFragment : Fragment() {
+/*class ResultFragment : Fragment() {
 
   private lateinit var resultModel: ResultModel
   lateinit var backgroundColor: View
@@ -83,3 +83,4 @@ class ResultFragment : Fragment() {
     startActivity(intent)
   }
 }
+ */
