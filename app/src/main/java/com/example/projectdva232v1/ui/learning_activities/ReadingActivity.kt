@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import com.example.projectdva232v1.MainActivity
 import com.example.projectdva232v1.R
+import com.example.projectdva232v1.ui.ResultActivity.ResultActivity
 import com.example.projectdva232v1.ui.learning_activities.classes.Answer
 import com.example.projectdva232v1.ui.learning_activities.classes.Choice
 import com.example.projectdva232v1.ui.learning_activities.classes.Question
@@ -57,7 +58,6 @@ class ReadingActivity : AppCompatActivity() {
             // Data could not be loaded, return to previous page
             Toast.makeText(this, "Failed to load the reading test", Toast.LENGTH_LONG).show()
 
-            // TODO: Set to select activity page once implemented
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
@@ -153,8 +153,7 @@ class ReadingActivity : AppCompatActivity() {
         // Check whether quiz has been completed
         if (currentQuestion + 1 == questions.size) {
             // Send to result page
-            // TODO: Change to results page
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, ResultActivity::class.java)
             val correctAnswers = controlAnswers(answers)
             intent.putExtra("correctAnswers", correctAnswers)
             intent.putExtra("totalAnswers", questions.size)
