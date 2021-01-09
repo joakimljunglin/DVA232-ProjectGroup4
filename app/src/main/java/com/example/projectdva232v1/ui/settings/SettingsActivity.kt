@@ -1,4 +1,4 @@
-package com.example.projectdva232v1.ui.Settings
+package com.example.projectdva232v1.ui.settings
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
