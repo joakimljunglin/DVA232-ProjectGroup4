@@ -34,6 +34,11 @@
     <string name="beginner">Beginner</string>
     <string name="intermediate">Intermediate</string>
     <string name="advanced">Advanced</string>
+    <string name="reading_test">Reading Test</string>
+    <string name="speaking_test">Speaking Test</string>
+    <string name="vocabulary_test">Vocabulary Test</string>
+    <string name="writing_test">Writing Test</string>
+    <string name="listening_test">Listening Test</string>
 
     <string-array name="difficulty_array">
         <item>All</item>
