@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:orientation="horizontal"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        android:id="@+id/rv_item">
 
         <ImageView
             android:id="@+id/activity_icon"

@@ -2,37 +2,33 @@ package com.example.projectdva232v1.ui.Vocabulary
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.HomePage.DifficultyLevelItem
+import com.example.projectdva232v1.ui.Listening.RecyclerAdapterListening
+import com.example.projectdva232v1.ui.learning_activities.ListeningActivity
 import com.example.projectdva232v1.ui.learning_activities.VocabularyActivity
 
-
-class VocabularyFragment : Fragment(), RecyclerAdapterVocabulary.OnItemClickListener {
-
-    private lateinit var vocabularyModel: VocabularyModel
+class VocabularyPage:AppCompatActivity(), RecyclerAdapterVocabulary.OnItemClickListener {
     var activityList = ArrayList<DifficultyLevelItem>()
     lateinit var difficultySelected: String
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreate(
+            savedInstanceState: Bundle?
+    ) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.fragment_reading_activity)
 
-        difficultySelected = VocabularyFragmentArgs.fromBundle(requireArguments()).VocabularyFragmentArgs
+        difficultySelected = intent.getStringExtra("diff").toString()
 
-        vocabularyModel =
-            ViewModelProvider(this).get(VocabularyModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_reading_activity, container, false)
 
-        //Since we don't have access to the API
         val activities = resources.getStringArray(R.array.difficulty_array)
         activityList.clear()
         for (diff in activities) {
@@ -42,19 +38,18 @@ class VocabularyFragment : Fragment(), RecyclerAdapterVocabulary.OnItemClickList
             }
         }
         // Setup for the recycler view
-        val rv = root.findViewById<RecyclerView>(R.id.recycler_view_activity_reading)
-        rv.adapter = RecyclerAdapterVocabulary(activityList, this)
-        rv.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        rv.setHasFixedSize(true)
-        return root
+        val rv = findViewById<RecyclerView>(R.id.recycler_view_activity_reading)
+            rv.adapter = RecyclerAdapterVocabulary(activityList, this)
+            rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            rv.setHasFixedSize(true)
+
     }
 
     override fun onItemClick(position: Int) {
-
         for (index in 0..activityList.size) {
             if (position == index) {
 
-                val intent = Intent(this.context, VocabularyActivity::class.java)
+                val intent = Intent(this, VocabularyActivity::class.java)
                 startActivity(intent)
             }
         }
