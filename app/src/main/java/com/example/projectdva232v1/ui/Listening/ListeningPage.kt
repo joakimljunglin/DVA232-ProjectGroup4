@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,31 +14,19 @@ import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.HomePage.DifficultyLevelItem
 import com.example.projectdva232v1.ui.learning_activities.ListeningActivity
 
-
-class ListeningFragment : Fragment(), RecyclerAdapterListening.OnItemClickListener {
-
-    private lateinit var listeningModel: ListeningModel
-    //lateinit var levels: MutableList<DifficultyLevelItem>
+class ListeningPage:AppCompatActivity(), RecyclerAdapterListening.OnItemClickListener {
     var activityList = ArrayList<DifficultyLevelItem>()
     lateinit var difficultySelected: String
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreate(
+            savedInstanceState: Bundle?
+    ) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.fragment_reading_activity)
 
-        //difficultySelected = ListeningFragmentArgs.fromBundle(requireArguments()).ListeningFragmentArgs
-        difficultySelected = this.arguments?.getString("diff").toString()
-        Log.d("diffFrag",difficultySelected)
+        difficultySelected = intent.getStringExtra("diff").toString()
 
 
-        listeningModel =
-            ViewModelProvider(this).get(ListeningModel::class.java)
-        val root = inflater.inflate(R.layout.recyclerview_activityitem, container, false)
-
-
-        //Since we don't have access to the API
         val activities = resources.getStringArray(R.array.difficulty_array)
         activityList.clear()
         for (diff in activities) {
@@ -48,18 +36,18 @@ class ListeningFragment : Fragment(), RecyclerAdapterListening.OnItemClickListen
             }
         }
         // Setup for the recycler view
-        val rv = root.findViewById<RecyclerView>(R.id.recycler_view_activity_reading)
+        val rv = findViewById<RecyclerView>(R.id.recycler_view_activity_reading)
         rv.adapter = RecyclerAdapterListening(activityList, this)
-        rv.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rv.setHasFixedSize(true)
-        return root
+
     }
 
     override fun onItemClick(position: Int) {
         for (index in 0..activityList.size) {
             if (position == index) {
 
-                val intent = Intent(this.context, ListeningActivity::class.java)
+                val intent = Intent(this, ListeningActivity::class.java)
                 startActivity(intent)
             }
         }

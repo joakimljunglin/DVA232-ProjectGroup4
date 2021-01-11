@@ -1,5 +1,6 @@
 package com.example.projectdva232v1
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,7 +11,7 @@ import androidx.fragment.app.commit
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import com.example.projectdva232v1.ui.HomePage.homePageFragment
+import com.example.projectdva232v1.ui.HomePage.HomePageClass
 import com.google.android.material.navigation.NavigationView
 
 
@@ -21,32 +22,36 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+setContentView(R.layout.activity_main)
+val toolbar: Toolbar = findViewById(R.id.toolbar)
+setSupportActionBar(toolbar)
 
-        drawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
-                setOf(
-                        R.id.nav_home,
-                        R.id.nav_vocabulary,
-                        R.id.nav_listening,
-                        R.id.nav_writing,
-                        R.id.nav_speaking,
-                        R.id.nav_reading
-                ), drawerLayout
-        )
+drawerLayout = findViewById(R.id.drawer_layout)
+val navView: NavigationView = findViewById(R.id.nav_view)
+val navController = findNavController(R.id.nav_host_fragment)
+// Passing each menu ID as a set of Ids because each
+// menu should be considered as top level destinations.
+appBarConfiguration = AppBarConfiguration(
+        setOf(
+                R.id.nav_home,
+                R.id.nav_vocabulary,
+                R.id.nav_listening,
+                R.id.nav_writing,
+                R.id.nav_speaking,
+                R.id.nav_reading
+        ), drawerLayout
+)
 
-        NavigationUI.setupWithNavController(navView, navController)
-        NavigationUI.setupActionBarWithNavController(this, navController)
+NavigationUI.setupWithNavController(navView, navController)
+NavigationUI.setupActionBarWithNavController(this, navController)
+
+
+        val intent = Intent(this, HomePageClass::class.java)
+        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
+// Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
@@ -65,7 +70,6 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 
 
 }
