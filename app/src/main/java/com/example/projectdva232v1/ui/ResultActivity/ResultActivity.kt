@@ -62,7 +62,7 @@ class ResultActivity : AppCompatActivity() {
     activityLogo.setImageDrawable(da)
 
     testScore.text = calcPercentage().toString()+"%"
-    testName.text = activityName
+    testName.text = activityName.capitalize()
     closeButton.setOnClickListener {
       sendToHome()
     }
