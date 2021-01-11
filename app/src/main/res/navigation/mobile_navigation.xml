@@ -92,15 +92,4 @@
             app:argType="string"
             android:defaultValue="All" />
     </fragment>
-
-    <fragment
-        android:id="@+id/nav_example5"
-        android:name="com.example.projectdva232v1.ui.example5.example5Fragment"
-        android:label="@string/reading"
-        tools:layout="@layout/fragment_example5" />
-    <fragment
-        android:id="@+id/nav_result"
-        android:name="com.example.projectdva232v1.ui.ResultActivity.ResultActivity"
-        android:label="@string/result"
-        tools:layout="@layout/result_layout" />
 </navigation>
