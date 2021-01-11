@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.HomePage.DifficultyLevelItem
-import com.example.projectdva232v1.ui.Listening.ListeningModel
 import com.example.projectdva232v1.ui.Listening.RecyclerAdapterListening
 import com.example.projectdva232v1.ui.learning_activities.ListeningActivity
 import com.example.projectdva232v1.ui.learning_activities.ReadingActivity
