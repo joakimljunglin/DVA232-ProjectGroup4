@@ -2,38 +2,37 @@ package com.example.projectdva232v1.ui.Reading
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.HomePage.DifficultyLevelItem
+import com.example.projectdva232v1.ui.Listening.ListeningModel
+import com.example.projectdva232v1.ui.Listening.RecyclerAdapterListening
+import com.example.projectdva232v1.ui.learning_activities.ListeningActivity
 import com.example.projectdva232v1.ui.learning_activities.ReadingActivity
 
-
-class ReadingFragment : Fragment(), RecyclerAdapterReading.OnItemClickListener {
-
-    private lateinit var readingModel: ReadingModel
+class ReadingPage:AppCompatActivity(), RecyclerAdapterReading.OnItemClickListener {
     var activityList = ArrayList<DifficultyLevelItem>()
     lateinit var difficultySelected: String
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreate(
+            savedInstanceState: Bundle?
+    ){
 
-        difficultySelected = ReadingFragmentArgs.fromBundle(requireArguments()).ReadingFragmentArgs
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.fragment_reading_activity)
 
-        readingModel =
-            ViewModelProvider(this).get(ReadingModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_reading_activity, container, false)
+        difficultySelected = intent.getStringExtra("diff").toString()
 
-        //Since we don't have access to the API
+
         val activities = resources.getStringArray(R.array.difficulty_array)
+        activityList.clear()
         for (diff in activities) {
             if (diff == difficultySelected) {
                 val item = DifficultyLevelItem(diff)
@@ -41,11 +40,10 @@ class ReadingFragment : Fragment(), RecyclerAdapterReading.OnItemClickListener {
             }
         }
         // Setup for the recycler view
-        val rv = root.findViewById<RecyclerView>(R.id.recycler_view_activity_reading)
+        val rv = findViewById<RecyclerView>(R.id.recycler_view_activity_reading)
         rv.adapter = RecyclerAdapterReading(activityList, this)
-        rv.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rv.setHasFixedSize(true)
-        return root
     }
 
     override fun onItemClick(position: Int) {
@@ -53,7 +51,7 @@ class ReadingFragment : Fragment(), RecyclerAdapterReading.OnItemClickListener {
         for (index in 0..activityList.size) {
             if (position == index) {
 
-                val intent = Intent(this.context, ReadingActivity::class.java)
+                val intent = Intent(this, ReadingActivity::class.java)
                 startActivity(intent)
             }
         }

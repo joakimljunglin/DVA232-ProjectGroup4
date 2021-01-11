@@ -1,5 +1,6 @@
 package com.example.projectdva232v1
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,7 +11,7 @@ import androidx.fragment.app.commit
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import com.example.projectdva232v1.ui.HomePage.homePageFragment
+import com.example.projectdva232v1.ui.HomePage.HomePageClass
 import com.google.android.material.navigation.NavigationView
 
 
@@ -43,6 +44,8 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupWithNavController(navView, navController)
         NavigationUI.setupActionBarWithNavController(this, navController)
+        val intent = Intent(this, HomePageClass::class.java)
+        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -56,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp()
     }
 
+    //TODO: put hamburger instead of back button on home page
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
