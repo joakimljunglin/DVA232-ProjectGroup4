@@ -1,4 +1,4 @@
-package com.example.projectdva232v1.ui.WritingActivity
+package com.example.projectdva232v1.ui.Writing
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

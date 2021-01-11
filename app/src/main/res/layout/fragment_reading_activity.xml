@@ -7,7 +7,7 @@
     android:background="@color/grey"
     android:orientation="vertical"
     android:id="@+id/reading_select"
-    tools:context=".ui.ReadingActivity.ReadingFragment">
+    tools:context=".ui.Reading.ReadingPage">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_activity_reading"
         android:orientation="vertical"

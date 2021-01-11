@@ -1,4 +1,4 @@
-package com.example.projectdva232v1.ui.homePage
+package com.example.projectdva232v1.ui.HomePage
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

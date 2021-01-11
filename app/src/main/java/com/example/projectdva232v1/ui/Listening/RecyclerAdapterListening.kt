@@ -1,4 +1,4 @@
-package com.example.projectdva232v1.ui.SpeakingActivity
+package com.example.projectdva232v1.ui.Listening
 
 import android.graphics.Color
 import android.text.SpannableString
@@ -13,15 +13,15 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdva232v1.R
-import com.example.projectdva232v1.ui.homePage.DifficultyLevelItem
+import com.example.projectdva232v1.ui.HomePage.DifficultyLevelItem
 
 
-class RecyclerAdapterSpeaking(
+class RecyclerAdapterListening(
     private val activityList: List<DifficultyLevelItem>,
     private val listener: OnItemClickListener,
     var score: Int = 0
 
-) : RecyclerView.Adapter<RecyclerAdapterSpeaking.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerAdapterListening.ViewHolder>() {
 
     // Called for every ViewHolder item that is to be created
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,7 +42,7 @@ class RecyclerAdapterSpeaking(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = activityList[position]
         //TODO: get best score from previous attempts
-        val s = "Test ${position + 1}\nBest score: $score\nLevel: ${currentItem.difficultyName}"
+        val s = "Test ${position+1}\nBest score: $score\nLevel: ${currentItem.difficultyName}"
         val span = SpannableString(s)
         span.setSpan(RelativeSizeSpan(1.5f), 0, span.indexOf("\n"), 0)
         span.setSpan(ForegroundColorSpan(Color.GRAY), span.indexOf("\n"), span.length, 0)
@@ -51,14 +51,14 @@ class RecyclerAdapterSpeaking(
         DrawableCompat.setTint(
             DrawableCompat.wrap(holder.circle.drawable), ContextCompat.getColor(
                 holder.circle.context,
-                R.color.speaking
+                R.color.listening
             )
         )
     }
 
     // Class with the data that is displayed for each ActivityItem
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+            View.OnClickListener {
         val textImageView: TextView = itemView.findViewById(R.id.reading_circle_tv)
         val textActivity: TextView = itemView.findViewById(R.id.reading_tv)
         val circle: ImageView = itemView.findViewById(R.id.reading_circle)
@@ -69,7 +69,7 @@ class RecyclerAdapterSpeaking(
 
         override fun onClick(v: View?) {
             val position = adapterPosition
-            if (position != RecyclerView.NO_POSITION) {
+            if(position!=RecyclerView.NO_POSITION){
                 listener.onItemClick(position)
             }
         }

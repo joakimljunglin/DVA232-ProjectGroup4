@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.projectdva232v1">
+    package="com.example.projectdva232v1" >
 
     <application
         android:allowBackup="true"
@@ -9,25 +9,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectDva232V1">
-        <activity android:name=".ui.RegActivity.RegistrationActivity"></activity>
-        <activity android:name=".ui.LoginActivity.LoginActivity" />
-        <activity
-            android:name=".ui.learning_activities.ReadingActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".ui.learning_activities.SpeakingActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".ui.learning_activities.VocabularyActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".ui.learning_activities.WritingActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".ui.learning_activities.ListeningActivity"
-            android:configChanges="keyboardHidden"
+        <activity android:name=".ui.HomePage.HomePageClass"
             android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:label="Home"/>
+        <activity android:name=".ui.Listening.ListeningPage"
+            android:parentActivityName=".MainActivity"
+            android:label="Listening"/>
+        <activity android:name=".ui.Reading.ReadingPage"
+            android:parentActivityName=".MainActivity"
+            android:label="Reading"/>
+        <activity android:name=".ui.Speaking.SpeakingPage"
+            android:parentActivityName=".MainActivity"
+            android:label="Speaking"/>
+        <activity android:name=".ui.Vocabulary.VocabularyPage"
+            android:parentActivityName=".MainActivity"
+            android:label="Vocabulary"/>
+        <activity android:name=".ui.Writing.WritingPage"
+            android:parentActivityName=".MainActivity"
+            android:label="Writing"/>
+        <activity android:name=".ui.learning_activities.ReadingActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="@string/reading_test"/>
+        <activity android:name=".ui.learning_activities.SpeakingActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="@string/speaking_test"/>
+        <activity android:name=".ui.learning_activities.VocabularyActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="@string/vocabulary_test"/>
+        <activity android:name=".ui.learning_activities.WritingActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="@string/writing_test"/>
+        <activity android:name=".ui.learning_activities.ListeningActivity"
+            android:parentActivityName=".MainActivity"
+            android:configChanges="keyboardHidden"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:label="@string/listening_test"/>
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
@@ -39,6 +55,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.ResultActivity.ResultActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="@string/result"/>
     </application>
 
 </manifest>
