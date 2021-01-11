@@ -61,8 +61,11 @@ class ResultActivity : AppCompatActivity() {
     var da: Drawable = resources.getDrawable(iconId, null)
     activityLogo.setImageDrawable(da)
 
+    var strActivityId: Int = resources.getIdentifier(activityName, "string", packageName)
+    var str: String = resources.getString(strActivityId, null)
+    testName.text = str
+
     testScore.text = calcPercentage().toString()+"%"
-    testName.text = activityName
     closeButton.setOnClickListener {
       sendToHome()
     }
