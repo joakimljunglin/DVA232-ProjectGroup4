@@ -2,22 +2,15 @@ package com.example.projectdva232v1.ui.HomePage
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdva232v1.R
-import com.example.projectdva232v1.ui.Listening.ListeningFragment
 import com.example.projectdva232v1.ui.Listening.ListeningPage
-import com.example.projectdva232v1.ui.Reading.ReadingFragment
 import com.example.projectdva232v1.ui.Reading.ReadingPage
-import com.example.projectdva232v1.ui.Speaking.SpeakingFragment
 import com.example.projectdva232v1.ui.Speaking.SpeakingPage
-import com.example.projectdva232v1.ui.Vocabulary.VocabularyFragment
 import com.example.projectdva232v1.ui.Vocabulary.VocabularyPage
-import com.example.projectdva232v1.ui.Writing.WritingFragment
 import com.example.projectdva232v1.ui.Writing.WritingPage
 
 class HomePageClass:AppCompatActivity(),RecyclerAdapterActivity.OnItemClickListener  {
@@ -26,6 +19,11 @@ class HomePageClass:AppCompatActivity(),RecyclerAdapterActivity.OnItemClickListe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_home_page)
+
+        if (supportActionBar != null) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(false);
+            supportActionBar?.setHomeButtonEnabled(false);
+        }
 
         //Create an array with the possible difficulties
         val possibleDifficulties = resources.getStringArray(R.array.difficulty_array)
@@ -68,31 +66,31 @@ class HomePageClass:AppCompatActivity(),RecyclerAdapterActivity.OnItemClickListe
             when (position) {
                 0 -> {
                     val intent = Intent(this, ListeningPage::class.java)
-                    intent.putExtra("diff",difficultySelected)
+                    intent.putExtra("diff", difficultySelected)
                     startActivity(intent)
                 }
 
                 1 -> {
                     val intent = Intent(this, VocabularyPage::class.java)
-                    intent.putExtra("diff",difficultySelected)
+                    intent.putExtra("diff", difficultySelected)
                     startActivity(intent)
                 }
 
                 2 -> {
                     val intent = Intent(this, WritingPage::class.java)
-                    intent.putExtra("diff",difficultySelected)
+                    intent.putExtra("diff", difficultySelected)
                     startActivity(intent)
                 }
 
                 3 -> {
                     val intent = Intent(this, SpeakingPage::class.java)
-                    intent.putExtra("diff",difficultySelected)
+                    intent.putExtra("diff", difficultySelected)
                     startActivity(intent)
                 }
 
                 else -> {
                     val intent = Intent(this, ReadingPage::class.java)
-                    intent.putExtra("diff",difficultySelected)
+                    intent.putExtra("diff", difficultySelected)
                     startActivity(intent)
                 }
             }
@@ -103,7 +101,6 @@ class HomePageClass:AppCompatActivity(),RecyclerAdapterActivity.OnItemClickListe
     }
 
     override fun onItemClicked(difficulty: String){
-        //TODO: When a difficulty is chosen, load the right exercises or create list with right exercises from json file
         difficultySelected = difficulty
     }
 
