@@ -6,10 +6,7 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.LoginActivity.LoginActivity
@@ -28,6 +25,19 @@ class RegistrationActivity : AppCompatActivity() {
         lateinit var button: Button
 
         button = findViewById(R.id.button1)
+
+        val spinner: Spinner = findViewById(R.id.roleSpinner)
+
+        ArrayAdapter.createFromResource(
+                this,
+                R.array.role_spinner,
+                android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spinner.adapter = adapter
+        }
 
         //lateinit var spinner: Spinner
         //spinner = findViewById(R.id.roleSpinner)

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_loginActivity">
+    app:startDestination="@id/nav_home">
 
 
     <fragment
@@ -103,18 +103,6 @@
         android:name="com.example.projectdva232v1.ui.ResultActivity.ResultActivity"
         android:label="@string/result"
         tools:layout="@layout/result_layout" />
-    <fragment
-        android:id="@+id/nav_loginActivity"
-        android:name="com.example.projectdva232v1.ui.LoginActivity.LoginActivity"
-        android:label="@string/login"
-        tools:layout="@layout/activity_login" >
-        <action
-            android:id="@+id/action_nav_loginActivity_to_nav_home"
-            app:destination="@id/nav_home" />
-    </fragment>
-    <fragment
-        android:id="@+id/nav_registrationActivity"
-        android:name="com.example.projectdva232v1.ui.RegActivity.RegistrationActivity"
-        android:label="@string/register"
-        tools:layout="@layout/activity_registration" />
+
+
 </navigation>

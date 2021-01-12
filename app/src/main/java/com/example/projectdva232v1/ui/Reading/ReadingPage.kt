@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -24,7 +25,6 @@ class ReadingPage:AppCompatActivity(), RecyclerAdapterReading.OnItemClickListene
     override fun onCreate(
             savedInstanceState: Bundle?
     ){
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_reading_activity)
 
@@ -56,4 +56,15 @@ class ReadingPage:AppCompatActivity(), RecyclerAdapterReading.OnItemClickListene
             }
         }
     }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 }

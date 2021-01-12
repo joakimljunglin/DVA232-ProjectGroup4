@@ -56,6 +56,13 @@
         <item>Reading</item>
     </string-array>
 
+    <string-array name="role_spinner">
+        <item>Student</item>
+        <item>Teacher</item>
+
+    </string-array>
+
+
     <integer-array name="activities_images">
         <item>@drawable/listening</item>
         <item>@drawable/vocabulary</item>

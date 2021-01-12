@@ -2,6 +2,7 @@ package com.example.projectdva232v1.ui.HomePage
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -104,8 +105,4 @@ class HomePageClass:AppCompatActivity(),RecyclerAdapterActivity.OnItemClickListe
         difficultySelected = difficulty
     }
 
-    override fun onStop() {
-        super.onStop()
-        difficultySelected = ""
-    }
 }

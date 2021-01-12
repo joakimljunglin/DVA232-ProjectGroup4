@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.RegActivity.RegistrationActivity">
 
+
+
     <EditText
         android:id="@+id/email_adress"
         android:layout_width="wrap_content"
@@ -65,7 +67,6 @@
         android:id="@+id/roleSpinner"
         android:layout_width="208dp"
         android:layout_height="48dp"
-        android:entries="@android:array/organizationTypes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
@@ -96,5 +97,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
