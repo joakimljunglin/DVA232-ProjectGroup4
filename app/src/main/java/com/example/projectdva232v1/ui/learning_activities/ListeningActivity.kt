@@ -20,7 +20,7 @@ import androidx.fragment.app.commit
 import com.example.projectdva232v1.MainActivity
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.HomePage.HomePageClass
-import com.example.projectdva232v1.ui.HomePage.homePageFragment
+//import com.example.projectdva232v1.ui.HomePage.homePageFragment
 import com.example.projectdva232v1.ui.ResultActivity.ResultActivity
 import com.example.projectdva232v1.ui.learning_activities.classes.Answer
 import com.example.projectdva232v1.ui.learning_activities.classes.ListeningQuiz

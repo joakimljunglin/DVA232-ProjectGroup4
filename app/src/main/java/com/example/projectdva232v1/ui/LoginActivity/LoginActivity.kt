@@ -20,8 +20,8 @@ import com.example.projectdva232v1.MainActivity
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.HomePage.HomePageClass
 import com.example.projectdva232v1.ui.RegActivity.RegistrationActivity
-import com.example.projectdva232v1.ui.HomePage.homePageFragment
-import com.example.projectdva232v1.ui.HomePage.homePageFragmentDirections
+//import com.example.projectdva232v1.ui.HomePage.homePageFragment
+//import com.example.projectdva232v1.ui.HomePage.homePageFragmentDirections
 
 
 class LoginActivity : AppCompatActivity() {
