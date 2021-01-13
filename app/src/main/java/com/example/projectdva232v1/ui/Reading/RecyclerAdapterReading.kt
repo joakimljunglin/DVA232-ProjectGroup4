@@ -43,6 +43,12 @@ class RecyclerAdapterReading(
         span.setSpan(ForegroundColorSpan(Color.GRAY),span.indexOf("\n"),span.length,0)
         holder.textActivity.text = span
         holder.textImageView.text = (position + 1).toString()
+        DrawableCompat.setTint(
+            DrawableCompat.wrap(holder.circle.drawable), ContextCompat.getColor(
+                holder.circle.context,
+                R.color.reading
+            )
+        )
     }
 
     // Class with the data that is displayed for each ActivityItem
@@ -50,6 +56,8 @@ class RecyclerAdapterReading(
             View.OnClickListener {
         val textImageView: TextView = itemView.findViewById(R.id.reading_circle_tv)
         val textActivity: TextView = itemView.findViewById(R.id.reading_tv)
+        val circle: ImageView = itemView.findViewById(R.id.reading_circle)
+
 
         init {
             itemView.setOnClickListener(this)
