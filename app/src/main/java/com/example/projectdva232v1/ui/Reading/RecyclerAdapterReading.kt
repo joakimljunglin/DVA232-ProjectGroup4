@@ -7,7 +7,10 @@ import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectdva232v1.R
 import com.example.projectdva232v1.ui.HomePage.DifficultyLevelItem
@@ -43,6 +46,12 @@ class RecyclerAdapterReading(
         span.setSpan(ForegroundColorSpan(Color.GRAY),span.indexOf("\n"),span.length,0)
         holder.textActivity.text = span
         holder.textImageView.text = (position + 1).toString()
+        DrawableCompat.setTint(
+            DrawableCompat.wrap(holder.circle.drawable), ContextCompat.getColor(
+                holder.circle.context,
+                R.color.reading
+            )
+        )
     }
 
     // Class with the data that is displayed for each ActivityItem
@@ -50,6 +59,8 @@ class RecyclerAdapterReading(
             View.OnClickListener {
         val textImageView: TextView = itemView.findViewById(R.id.reading_circle_tv)
         val textActivity: TextView = itemView.findViewById(R.id.reading_tv)
+        val circle: ImageView = itemView.findViewById(R.id.reading_circle)
+
 
         init {
             itemView.setOnClickListener(this)

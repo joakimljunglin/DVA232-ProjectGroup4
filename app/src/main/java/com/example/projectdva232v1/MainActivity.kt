@@ -12,6 +12,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.projectdva232v1.ui.HomePage.HomePageClass
+import com.example.projectdva232v1.ui.LoginActivity.LoginActivity
+import com.example.projectdva232v1.ui.RegActivity.RegistrationActivity
 import com.google.android.material.navigation.NavigationView
 
 
@@ -19,18 +21,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val intent1 = Intent(this,LoginActivity::class.java)
+        startActivity(intent1)
 
-        val intent = Intent(this, HomePageClass::class.java)
-        startActivity(intent)
+
+
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+   override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            android.R.id.home -> {
+            R.id.homepage -> {
                 onBackPressed()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 }

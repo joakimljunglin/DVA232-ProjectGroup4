@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.projectdva232v1.MainActivity
 import com.example.projectdva232v1.R
+import com.example.projectdva232v1.ui.HomePage.HomePageClass
 import kotlin.math.roundToInt
 
 class ResultActivity : AppCompatActivity() {
@@ -78,7 +79,7 @@ class ResultActivity : AppCompatActivity() {
   }
 
   private fun sendToHome() {
-    val intent = Intent(this, MainActivity::class.java)
+    val intent = Intent(this, HomePageClass::class.java)
     startActivity(intent)
   }
 }

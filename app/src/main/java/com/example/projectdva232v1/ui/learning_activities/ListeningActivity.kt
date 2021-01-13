@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Parcelable
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -18,6 +19,8 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import com.example.projectdva232v1.MainActivity
 import com.example.projectdva232v1.R
+import com.example.projectdva232v1.ui.HomePage.HomePageClass
+//import com.example.projectdva232v1.ui.HomePage.homePageFragment
 import com.example.projectdva232v1.ui.ResultActivity.ResultActivity
 import com.example.projectdva232v1.ui.learning_activities.classes.Answer
 import com.example.projectdva232v1.ui.learning_activities.classes.ListeningQuiz
@@ -58,7 +61,7 @@ class ListeningActivity : AppCompatActivity() {
                 // Restore values from saved instance
                 currentQuestion = savedInstanceState.getInt("CURRENT_QUESTION")
                 answers =
-                    savedInstanceState.getParcelableArrayList<Answer>("ANSWERS")?.toMutableList()!!
+                        savedInstanceState.getParcelableArrayList<Answer>("ANSWERS")?.toMutableList()!!
                 quiz = savedInstanceState.getParcelable<ListeningQuiz>("QUIZ")!!
                 audioFinishedPlaying = savedInstanceState.getBoolean("FINISHED_PLAYING")
                 audioCurrentPosition = savedInstanceState.getInt("AUDIO_POSITION")
@@ -69,8 +72,18 @@ class ListeningActivity : AppCompatActivity() {
             Toast.makeText(this, "Failed to load the listening test", Toast.LENGTH_LONG).show()
 
             // TODO: Set to select activity page once implemented
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, HomePageClass::class.java)
             startActivity(intent)
+        }
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+               finish()
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -171,7 +184,7 @@ class ListeningActivity : AppCompatActivity() {
             // Get the filename without the ".mp3" extension
             val fileName = File(quiz.audio).nameWithoutExtension
             val audioUri =
-                Uri.parse("android.resource://" + this.packageName + "/raw/" + fileName)
+                    Uri.parse("android.resource://" + this.packageName + "/raw/" + fileName)
 
             mediaPlayer = MediaPlayer.create(this, audioUri)
 
@@ -208,7 +221,7 @@ class ListeningActivity : AppCompatActivity() {
             // Get the filename without the ".mp3" extension
             val fileName = File(quiz.audio).nameWithoutExtension
             val audioUri =
-                Uri.parse("android.resource://" + this.packageName + "/raw/" + fileName)
+                    Uri.parse("android.resource://" + this.packageName + "/raw/" + fileName)
 
             mediaPlayer = MediaPlayer.create(this, audioUri)
 
@@ -234,7 +247,7 @@ class ListeningActivity : AppCompatActivity() {
 
         // Create a countdown timer to display the time left of the audio
         val timeLeft = mediaPlayer?.duration?.minus(mediaPlayer?.currentPosition!!)?.toLong()
-        audioTimer = object: CountDownTimer(timeLeft!!, 1000) {
+        audioTimer = object : CountDownTimer(timeLeft!!, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 audioTimeTextView.text = timeFormat(millisUntilFinished)
             }
@@ -268,8 +281,9 @@ class ListeningActivity : AppCompatActivity() {
         mediaPlayer = null
     }
 
+
     // When leaving the app
-    override fun onStop() {
+   /* override fun onStop() {
         super.onStop()
         pausePlayer()
     }
@@ -279,7 +293,7 @@ class ListeningActivity : AppCompatActivity() {
         super.onDestroy()
         stopPlayer()
     }
-
+*/
     // For formatting the text used to display time left of audio
     private fun timeFormat(milliseconds: Long): String {
         // Input milliseconds
@@ -397,7 +411,7 @@ class ListeningActivity : AppCompatActivity() {
             }
 
             val text =
-                getString(R.string.complete_sentence) + " " + (currentQuestion + 1).toString()
+                    getString(R.string.complete_sentence) + " " + (currentQuestion + 1).toString()
             questionTextView.text = text
 
 
@@ -421,4 +435,7 @@ class ListeningActivity : AppCompatActivity() {
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(windowToken, 0)
     }
+
+
+
 }
