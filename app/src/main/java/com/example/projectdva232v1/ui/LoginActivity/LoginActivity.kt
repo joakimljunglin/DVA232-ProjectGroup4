@@ -28,6 +28,11 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        
+        if (supportActionBar != null) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(false);
+            supportActionBar?.setHomeButtonEnabled(false);
+        }
 
         var et_user_name = findViewById(R.id.editTextTextEmailAddress) as EditText
         var strUserName = et_user_name.text.toString()
